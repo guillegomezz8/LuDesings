@@ -1,4 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 {% block contenido%}
-<h1>Hola</h1>
+<div class="container contenedor-personalizado">
+    <div class="row">
+        <div class="col text-center mt-5 mb-5">
+            <img src="{% static "img/SobreMi.JPEG" %}" class="img-sobreMi">
+        </div>    
+        <div class="col text-center mt-5">
+            <h2 class="titulo">¿Quién Soy?</h2>
+            <p class="contenido">Mi identidad se teje entre las aulas de la Universidad de Sevilla, donde me sumerjo en el apasionante mundo de la Educación Primaria. Es en este entorno académico donde encuentro la pasión por nutrir mentes jóvenes y sembrar el conocimiento con dedicación y empatía. Sin embargo, mi vida va más allá de las asignaturas y los exámenes. En los momentos de pausa y entre clases, encuentro un refugio creativo en el diseño. La creatividad fluye libremente cuando mis manos dan forma a ideas, ya sea a través del dibujo, la pintura o la creación digital. Es en esta dualidad donde encuentro mi verdadera esencia: una estudiante comprometida con el aprendizaje y el desarrollo humano, pero también una mente inquieta y creativa que encuentra en el diseño una forma de expresión y realización personal.<p>
+
+            <h2 class="titulo">Redes Sociales</h2>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="{%static 'css/sobreMi.css'%}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 {%endblock%}

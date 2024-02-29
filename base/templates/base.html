@@ -10,15 +10,15 @@
 <body>
     <nav class="navbar bg-body-tertiary">
             <div class="d-flex justify-content-center div-logo">
-                <img class="img-logo" src="https://www.cocemfe.es/wp-content/uploads/thegem-logos/logo_afb4a0816f68e0c0dc0425488429ff40_2x.png" alt="Descripción de la imagen">
+                <a href="{% url "base" %}"><img class="img-logo" src="{% static "img/LogoLu.png" %}" alt="Descripción de la imagen"></a>
             </div>
             <div class= "nav-bar-personalizada">
                 <div>
                     <a class="navbar-brand" href="#">Diseños</a>
-                    <a class="navbar-brand" href="#">Sobre Mi</a>
+                    <a class="navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
                 </div>
                 <div>
-                    <a class="navbar-brand">Inicio Sesion</a>
+                    <a class="navbar-brand">Inicio Sesión</a>
                 </div>
             </div>
     </nav>

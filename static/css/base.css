@@ -1,0 +1,24 @@
+.nav-bar-personalizada{
+    background-color: #00A599; 
+    width: 80%; 
+    height: 60px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+}
+
+.div-logo{
+    width: 20%; 
+    height: 100%;
+}
+
+.img-logo{
+    width: 200px; 
+    height: auto;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}

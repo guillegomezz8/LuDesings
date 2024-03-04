@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container contenedor-personalizado">
+    {% if diseños %}
+        {% for d in diseños %}
+        <div class="card">
+            <img src="{{ d.imagen_principal.image.url }}" class="img-principal card-img-top" alt="DiseñosLuJapon">
+            <div class="card-body">
+              <h5 class="card-title">{{ d.name }}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p class="text-center">No hay diseños que mostrar</p>
+    {% endif %}
+</div>
+<link rel="stylesheet" href="{% static 'css/diseños.css' %}"/>
+{% endblock %}

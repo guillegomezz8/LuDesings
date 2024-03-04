@@ -4,17 +4,17 @@
 {% bootstrap_javascript %}
 <html>
 <head>
-  <title>LuDesings</title>
+  <title>LuJapon</title>
   <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 </head>
 <body>
     <nav class="navbar bg-body-tertiary">
             <div class="d-flex justify-content-center div-logo">
-                <a href="{% url "base" %}"><img class="img-logo" src="{% static "img/LogoLu.png" %}" alt="Descripción de la imagen"></a>
+                <a href="admin/"><img class="img-logo" src="{% static "img/LogoLucia.PNG" %}" alt="Descripción de la imagen"></a>
             </div>
             <div class= "nav-bar-personalizada">
                 <div>
-                    <a class="navbar-brand" href="#">Diseños</a>
+                    <a class="navbar-brand" href="{% url "diseños" %}">Diseños</a>
                     <a class="navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
                 </div>
                 <div>

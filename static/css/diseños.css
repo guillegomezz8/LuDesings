@@ -3,6 +3,18 @@
 }
 
 .img-principal{
-    width: 35%;
+    width: 100%;
     height: auto;
+}
+
+.card{
+    width: 95%;
+    border: 3px solid #f1d1ff;
+}
+
+.titulo{
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: normal;
+    color: rgb(87, 42, 118);
 }

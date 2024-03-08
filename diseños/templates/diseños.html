@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block contenido %}
-<div class="container text-center contenedor-personalizado">
+<div class="container text-center">
     {% if request.user.is_authenticated %}
         <div class="text-center pt-2 align-items-center">
             <a href="{% url "crear" %}" type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Añadir Diseño</a>

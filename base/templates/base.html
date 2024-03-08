@@ -17,9 +17,15 @@
                     <a class="navbar-brand" href="{% url "diseños" %}">Diseños</a>
                     <a class="navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
                 </div>
+                {% if request.user.is_authenticated %}
                 <div>
-                    <a class="navbar-brand">Inicio Sesión</a>
+                    <a class="navbar-brand" href="{% url "logout" %}">Cerrar Sesion</a>
                 </div>
+                {%else%}
+                <div>
+                    <a class="navbar-brand" href="{% url "login" %}">Inicio Sesión</a>
+                </div>
+                {%endif%}
             </div>
     </nav>
     {% block contenido %}

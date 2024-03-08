@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -9,8 +9,11 @@ def custom_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # Redirigir a la página deseada después del login exitoso
-            return redirect('ruta_despues_de_login')
+            return redirect('diseños')
         else:
             messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
     return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('diseños')

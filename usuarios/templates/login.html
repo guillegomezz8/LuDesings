@@ -1,17 +1,35 @@
 {% extends "base.html" %}
+{% load static%}
 {% block contenido %}
-<h2>Login</h2>
 {% if messages %}
     {% for message in messages %}
-        <div>{{ message }}</div>
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
     {% endfor %}
 {% endif %}
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username"><br>
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password"><br><br>
-    <input type="submit" value="Login">
-</form>
+<div class="mb-5 container contenedor-personalizado mx-auto col-md-6">
+    <form method="post">
+        {% csrf_token %}
+        <div class="divider d-flex align-items-center my-4">
+            <h4 class="contenido text-center fw-bold mx-3 mb-0">Inicio de Sesión</h4>
+        </div>
+
+        <div class="form-outline mb-3 form-per">
+            <input type="text" id="username" name="username"class="form-control form-control-lg" placeholder="Introduce tu usuario" />
+        </div>
+
+        <div class="form-outline mb-3 form-per">
+            <input type="password" id="password" name="password" class="form-control form-control-lg " placeholder="Introduce tu contraseña" />
+        </div>
+
+        <div class="text-center mt-4 pt-2 align-items-center">
+            <button type="submit" value="Login" class="contenido btn btn-outline-custom btn-lg bt-login">Login</button>
+        </div>
+    </form>
+</div>
+<link rel="stylesheet" href="{%static 'css/login.css'%}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 {% endblock %}

@@ -2,7 +2,12 @@
 {% load static %}
 {% block contenido %}
 <div class="container text-center contenedor-personalizado">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% if request.user.is_authenticated %}
+        <div class="text-center pt-2 align-items-center">
+            <a href="{% url "crear" %}" type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Añadir Diseño</a>
+        </div>
+    {% endif %}
+    <div class="row mt-4 row-cols-1 row-cols-md-2 g-4">
         {% if diseños %}
             {% for d in diseños %}
             <div class="row">
@@ -13,7 +18,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="titulo card-title">{{ d.nombre }}</h5>
+                                <h5 class="contenido card-title">{{ d.nombre }}</h5>
                                 <p class="card-text">{{d.descripccion}}</p>
                             </div>
                         </div>

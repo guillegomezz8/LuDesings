@@ -12,9 +12,15 @@
     border: 3px solid #f1d1ff;
 }
 
-.titulo{
+.contenido{
     font-family: "Merriweather", serif;
     font-weight: 900;
     font-style: normal;
     color: rgb(87, 42, 118);
+}
+
+.btn-outline-custom {
+    background-color: #f1d1ff;
+    padding-left: 2.5rem; 
+    padding-right: 2.5rem;
 }

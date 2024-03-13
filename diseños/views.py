@@ -8,7 +8,6 @@ def diseños(request):
     return render(request, 'diseños.html',{'diseños': diseños})
 
 def crear_diseño(request):
-    form = DiseñoForm(request.POST, request.FILES)
     if request.method == 'POST':
         form = DiseñoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -21,7 +20,7 @@ def crear_diseño(request):
             imagen_principal_obj = Imagen.objects.create(imagen=imagen_principal)
 
             # Crear diseño
-            diseño = Diseño.objects.create(nombre=nombre, descripccion=descripcion, imagen_principal=imagen_principal_obj)
+            diseño = Diseño.objects.create(nombre=nombre, descripccion=descripcion, imagen_principal=imagen_principal)
 
             # Guardar imágenes adicionales
             for imagen_adicional in imagenes_adicionales:

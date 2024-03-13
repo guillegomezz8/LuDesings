@@ -14,16 +14,16 @@
             </div>
             <div class= "nav-bar-personalizada">
                 <div>
-                    <a class="navbar-brand" href="{% url "diseños" %}">Diseños</a>
-                    <a class="navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
+                    <a class="contenido navbar-brand" href="{% url "diseños" %}">Diseños</a>
+                    <a class="contenido navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
                 </div>
                 {% if request.user.is_authenticated %}
                 <div>
-                    <a class="navbar-brand" href="{% url "logout" %}">Cerrar Sesion</a>
+                    <a class="contenido navbar-brand" href="{% url "logout" %}">Cerrar Sesion</a>
                 </div>
                 {%else%}
                 <div>
-                    <a class="navbar-brand" href="{% url "login" %}">Inicio Sesión</a>
+                    <a class="contenido navbar-brand" href="{% url "login" %}">Inicio Sesión</a>
                 </div>
                 {%endif%}
             </div>
@@ -31,5 +31,8 @@
     {% block contenido %}
     {% endblock  %}
     <link rel="stylesheet" href="{%static 'css/base.css'%}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </body>
 </html>

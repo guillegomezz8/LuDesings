@@ -23,3 +23,10 @@ a{
     text-decoration: none;
     margin: 0 10px;
 }
+
+.contenido{
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: normal;
+    color: rgb(87, 42, 118);
+}

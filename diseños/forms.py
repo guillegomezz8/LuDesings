@@ -16,5 +16,5 @@ class DiseñoForm(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'class': 'form-control form-control-lg ', 'placeholder': 'Introduce el nombre'}),
             'descripccion': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Introduce la descripción'}),
             'imagen_principal': forms.FileInput(attrs={'class': 'form-control form-control-lg', 'accept': 'image/*'}),
-            'imagenes_adicionales': forms.FileInput(attrs={'class': 'form-control form-control-lg', 'multiple': True, 'accept': 'image/*'}),
+            'imagenes_adicionales': forms.ClearableFileInput(attrs={'class': 'form-control form-control-lg', 'multiple': True, 'accept': 'image/*'}),
         }

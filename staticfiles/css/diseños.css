@@ -1,0 +1,22 @@
+.img-principal{
+    width: 100%;
+    height: auto;
+}
+
+.card{
+    width: 95%;
+    border: 3px solid #f1d1ff;
+}
+
+.contenido{
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: normal;
+    color: rgb(87, 42, 118);
+}
+
+.btn-outline-custom {
+    background-color: #f1d1ff;
+    padding-left: 2.5rem; 
+    padding-right: 2.5rem;
+}

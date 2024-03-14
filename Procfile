@@ -1,0 +1,1 @@
+web: gunicorn LuDesings.wsgi --log-file -

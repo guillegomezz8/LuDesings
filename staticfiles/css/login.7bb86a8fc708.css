@@ -1,0 +1,38 @@
+.contenedor-personalizado {
+    border: 3px solid #f1d1ff;
+    border-radius: 10px;
+}
+
+.bt-login {
+    padding-left: 2.5rem; 
+    padding-right: 2.5rem;
+}
+
+.form-per {
+    padding-left: 8rem; 
+    padding-right: 8rem;   
+}
+
+.contenido{
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: normal;
+    color: rgb(87, 42, 118);
+}
+
+.btn-outline-custom {
+    background-color: #f1d1ff;
+}
+
+.form-control-lg {
+    font-size: 14px;
+    border: 3px solid #f1d1ff;
+}
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 2px;
+background: #f1d1ff;
+}

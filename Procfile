@@ -1,1 +1,1 @@
-web: gunicorn LuDesings.wsgi --log-file -
+web: gunicorn LuDesigns.wsgi --log-file -

@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include('base.urls')),
     path('diseños/', include('diseños.urls')),
     path('', include('usuarios.urls')),
-    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT} )
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT})
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

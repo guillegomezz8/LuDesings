@@ -2,7 +2,7 @@ asgiref
 beautifulsoup4==4.12.3
 Brotli 
 cachetools==5.3.2
-certifi 
+certifi
 cffi 
 charset-normalizer 
 cryptography 
@@ -29,10 +29,11 @@ pywin32-ctypes==0.2.2
 requests 
 soupsieve==2.5
 sqlparse 
-stripe 
+stripe
 tzdata 
 urllib3 
 win-inet-pton 
 wincertstore==0.2
 yagmail==0.15.293
 zipp==3.17.0
+gunicorn

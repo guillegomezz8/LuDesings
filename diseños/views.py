@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Diseño,Imagen
 from .forms import DiseñoForm
 
@@ -26,5 +26,14 @@ def crear_diseño(request):
     else:
         form = DiseñoForm()
     return render(request, 'diseñoForm.html', {'form': form})
+
+def borrar_diseño(request, pk):
+    diseño = get_object_or_404(Diseño, pk=pk)
+    if request.user.is_superuser:
+        diseño.delete()
+        return redirect('diseños')   
+    else:
+        return render(request, '403.html')
+
 
 

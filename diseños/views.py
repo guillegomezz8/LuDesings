@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import user_passes_test
 from .models import Diseño,Imagen
 from .forms import DiseñoForm
 
 # Create your views here.
+def es_administrador(user):
+    return user.is_authenticated and user.is_staff
+
 def diseños(request):
     diseños = Diseño.objects.all()
     return render(request, 'diseños.html',{'diseños': diseños})
 
+@user_passes_test(es_administrador)
 def crear_diseño(request):
     if request.method == 'POST':
         form = DiseñoForm(request.POST, request.FILES)
@@ -27,6 +32,7 @@ def crear_diseño(request):
         form = DiseñoForm()
     return render(request, 'diseñoCrear.html', {'form': form})
 
+@user_passes_test(es_administrador)
 def borrar_diseño(request, pk):
     diseño = get_object_or_404(Diseño, pk=pk)
     if request.user.is_superuser:
@@ -34,7 +40,8 @@ def borrar_diseño(request, pk):
         return redirect('diseños')   
     else:
         return render(request, '403.html')
-    
+
+@user_passes_test(es_administrador)   
 def editar_diseño(request,pk):
     diseño = get_object_or_404(Diseño, pk=pk)
     if request.method == 'POST':

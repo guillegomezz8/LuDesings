@@ -1,6 +1,20 @@
 {%extends "base.html" %}
 {% load static%}
 {%block contenido%}
-
+<div class="mb-5 container contenedor-personalizado mx-auto col-md-6">
+    <div class="divider d-flex align-items-center my-4">
+        <h4 class="contenido text-center fw-bold mx-3 mb-0">Editar Diseño</h4>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center mt-4 pt-2 align-items-center">
+            <button type="submit" value="Login" class="contenido btn btn-outline-custom btn-lg bt-login">Guardar Cambios</button>
+        </div>  
+    </form>
+</div>
+<link rel="stylesheet" href="{%static 'css/diseñoForm.css'%}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 {%endblock%}
-s

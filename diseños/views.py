@@ -25,7 +25,7 @@ def crear_diseño(request):
             return redirect('diseños')  
     else:
         form = DiseñoForm()
-    return render(request, 'diseñoForm.html', {'form': form})
+    return render(request, 'diseñoCrear.html', {'form': form})
 
 def borrar_diseño(request, pk):
     diseño = get_object_or_404(Diseño, pk=pk)
@@ -36,4 +36,12 @@ def borrar_diseño(request, pk):
         return render(request, '403.html')
     
 def editar_diseño(request,pk):
-    return render(request, 'diseñoEditar.html')
+    diseño = get_object_or_404(Diseño, pk=pk)
+    if request.method == 'POST':
+        form = DiseñoForm(request.POST, request.FILES, instance=diseño)
+        if form.is_valid():
+            form.save()
+            return redirect('diseños')
+    else:
+        form = DiseñoForm(instance=diseño)
+    return render(request, 'diseñoEditar.html', {'form': form})

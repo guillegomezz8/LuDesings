@@ -34,6 +34,6 @@ def borrar_diseño(request, pk):
         return redirect('diseños')   
     else:
         return render(request, '403.html')
-
-
-
+    
+def editar_diseño(request,pk):
+    return render(request, 'diseñoEditar.html')

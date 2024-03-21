@@ -15,14 +15,20 @@
                         <div class="row g-0">
                             <div class="col-md-5">
                                 {% if d.imagen_principal %}
-                                    <img src="{{ d.imagen_principal.url }}" class="img-principal img-fluid rounded-start" alt="DiseñoLuJapon">
+                                    <a href="{% url "detalle_diseño" pk=d.pk  %}">
+                                        <img src="{{ d.imagen_principal.url }}" class="img-principal img-fluid rounded-start" alt="DiseñoLuJapon">
+                                    </a>
                                 {% else %}
-                                    <img src="{% static 'img/default.jpg' %}" class="img-principal img-fluid rounded-start" alt="Imagen por defecto">
+                                    <a href="{% url "detalle_diseño" pk=d.pk  %}">
+                                        <img src="{% static 'img/default.jpg' %}" class="img-principal img-fluid rounded-start" alt="Imagen por defecto">
+                                    </a>
                                 {% endif %}                        
                             </div>
                             <div class="col-md-7 d-flex align-items-center">
                                 <div class="card-body">
-                                    <h5 class="contenido card-title">{{ d.nombre }}</h5>
+                                    <a href="{% url "detalle_diseño" pk=d.pk  %}">
+                                        <h5 class="contenido card-title">{{ d.nombre }}</h5>
+                                    </a>
                                     <p class="card-text">{{d.descripccion}}</p>
                                     {% if request.user.is_authenticated %}
                                         <div class="d-flex justify-content-center mt-3">

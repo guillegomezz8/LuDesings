@@ -52,3 +52,7 @@ def editar_diseño(request,pk):
     else:
         form = DiseñoForm(instance=diseño)
     return render(request, 'diseñoEditar.html', {'form': form})
+
+def detalle_diseño(request,pk):
+    diseño = get_object_or_404(Diseño, pk=pk)
+    return render(request, 'diseñoDetalle.html',{'diseño': diseño})

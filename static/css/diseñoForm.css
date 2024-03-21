@@ -1,7 +1,7 @@
 .contenedor-personalizado {
     border: 3px solid #f1d1ff;
     border-radius: 10px;
-    padding: 20px; /* Agregamos un poco de espacio para que no estén pegados a los bordes */
+    padding: 20px;
 }
 
 .bt-login {

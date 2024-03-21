@@ -1,8 +1,24 @@
 {%extends "base.html" %}
 {% load static%}
 {%block contenido%}
-<img src="{{ diseño.imagen_principal.url }}" class="img-principal img-fluid rounded-start" alt="DiseñoLuJapon">
-
+<div class="container contenedor-personalizado">
+    <div class="row align-items-center">
+        <div class ="col text-center col-r">
+            <img src="{{ diseño.imagen_principal.url }}" class="img-principal img-fluid rounded-start" alt="DiseñoLuJapon">
+        </div>
+        <div class ="col text-center">
+            <div class="card-title">
+                <h3 class="contenido">{{diseño.nombre}}</h3>
+            </div>
+            <div class="contenido card-text">
+                {{diseño.descripccion}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-3 mb-3 text-center pt-2 align-items-center">
+    <a href="{% url "diseños" %}" type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atras</a>
+</div>
 <link rel="stylesheet" href="{%static 'css/diseñoDetalles.css'%}"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponseRedirect
 from .models import Diseño,Imagen
 from .forms import DiseñoForm
 
@@ -49,7 +50,11 @@ def editar_diseño(request,pk):
             diseño = form.save(commit=False)
             diseño.save()
 
-            diseño.imagenes_adicionales.clear()
+            imagenes_a_eliminar = request.POST.getlist('eliminar_imagenes')
+            for imagen_id in imagenes_a_eliminar:
+                imagen = Imagen.objects.get(pk=imagen_id)
+                diseño.imagenes_adicionales.remove(imagen)
+                imagen.delete()
 
             imagenes_adicionales = request.FILES.getlist('imagenes_adicionales')
             for imagen_adicional in imagenes_adicionales:
@@ -59,7 +64,7 @@ def editar_diseño(request,pk):
             return redirect('diseños')
     else:
         form = DiseñoForm(instance=diseño)
-    return render(request, 'diseñoEditar.html', {'form': form})
+    return render(request, 'diseñoEditar.html', {'form': form, 'diseño': diseño})
 
 
 def detalle_diseño(request,pk):

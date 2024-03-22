@@ -44,3 +44,14 @@ label {
     font-style: normal;
     color: rgb(87, 42, 118);
 }
+
+.img-principal {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+}
+
+.border-custom {
+    border: 3px solid #f1d1ff;
+    border-radius: 10px;
+}

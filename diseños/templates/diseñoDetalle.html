@@ -1,26 +1,43 @@
-{%extends "base.html" %}
-{% load static%}
-{%block contenido%}
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
 <div class="container contenedor-personalizado">
     <div class="row align-items-center">
-        <div class ="col text-center col-r">
-            <img src="{{ diseño.imagen_principal.url }}" class="img-principal img-fluid rounded-start" alt="DiseñoLuJapon">
+        <div class="col text-center col-r">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for imagen in imagenes %}
+                        <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                            <img src="{{ imagen.imagen.url }}" class="img-principal img-fluid rounded-start" alt="{{ diseño.nombre }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
-        <div class ="col text-center">
+        <div class="col text-center">
             <div class="card-title">
-                <h3 class="contenido">{{diseño.nombre}}</h3>
+                <h3 class="contenido">{{ diseño.nombre }}</h3>
             </div>
             <div class="contenido card-text">
-                {{diseño.descripccion}}
+                {{ diseño.descripccion }}
             </div>
         </div>
     </div>
 </div>
 <div class="mt-3 mb-3 text-center pt-2 align-items-center">
-    <a href="{% url "diseños" %}" type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atras</a>
+    <a href="{% url "diseños" %}" type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
 </div>
-<link rel="stylesheet" href="{%static 'css/diseñoDetalles.css'%}"/>
+<link rel="stylesheet" href="{% static 'css/diseñoDetalles.css' %}" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-{%endblock%}
+{% endblock %}

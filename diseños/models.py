@@ -12,5 +12,12 @@ class Diseño(models.Model):
     def __str__(self):
         return self.nombre
 
+    def todas_las_imagenes(self):
+        imagenes = []
+        if self.imagen_principal:
+            imagen_prin = Imagen.objects.create(imagen = self.imagen_principal)
+            imagenes.append(imagen_prin)
+        imagenes.extend(self.imagenes_adicionales.all())
+        return imagenes
 
 

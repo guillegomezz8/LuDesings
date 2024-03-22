@@ -26,7 +26,6 @@ def crear_diseño(request):
             for imagen_adicional in imagenes_adicionales:
                 imagen_adicional_obj = Imagen.objects.create(imagen=imagen_adicional)
                 diseño.imagenes_adicionales.add(imagen_adicional_obj)
-
             return redirect('diseños')  
     else:
         form = DiseñoForm()
@@ -47,12 +46,23 @@ def editar_diseño(request,pk):
     if request.method == 'POST':
         form = DiseñoForm(request.POST, request.FILES, instance=diseño)
         if form.is_valid():
-            form.save()
+            diseño = form.save(commit=False)
+            diseño.save()
+
+            diseño.imagenes_adicionales.clear()
+
+            imagenes_adicionales = request.FILES.getlist('imagenes_adicionales')
+            for imagen_adicional in imagenes_adicionales:
+                imagen_adicional_obj = Imagen.objects.create(imagen=imagen_adicional)
+                diseño.imagenes_adicionales.add(imagen_adicional_obj)
+
             return redirect('diseños')
     else:
         form = DiseñoForm(instance=diseño)
     return render(request, 'diseñoEditar.html', {'form': form})
 
+
 def detalle_diseño(request,pk):
     diseño = get_object_or_404(Diseño, pk=pk)
-    return render(request, 'diseñoDetalle.html',{'diseño': diseño})
+    imagenes = diseño.todas_las_imagenes()
+    return render(request, 'diseñoDetalle.html',{'diseño': diseño,'imagenes': imagenes})

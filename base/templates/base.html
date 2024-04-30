@@ -17,6 +17,7 @@
                 <div>
                     <a class="contenido navbar-brand" href="{% url "diseños" %}">Diseños</a>
                     <a class="contenido navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
+                    <a class="contenido navbar-brand" href="{% url "peticionesForm" %}">Peticiones</a>
                 </div>
                 {% if request.user.is_authenticated %}
                 <div>
@@ -31,6 +32,9 @@
     </nav>
     {% block contenido %}
     {% endblock  %}
+    <div class="footer">
+        <a class="contenido">Pagina Web creada por Guillermo Gomez</a>
+    </div>
     <link rel="stylesheet" href="{%static 'css/base.css'%}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

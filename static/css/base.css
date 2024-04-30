@@ -30,3 +30,16 @@ a{
     font-style: normal;
     color: rgb(87, 42, 118);
 }
+
+body{
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+
+.footer{
+    background-color: #f1d1ff; 
+    text-align: center;
+    padding: 1em 0;
+    width: 100%;
+}

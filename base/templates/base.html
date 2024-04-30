@@ -10,25 +10,25 @@
 </head>
 <body>
     <nav class="navbar bg-body-tertiary">
-            <div class="d-flex justify-content-center div-logo">
-                <a href="{% url "sobreMi" %}"><img class="img-logo" src="{% static "img/LogoLucia.PNG" %}" alt="Descripción de la imagen"></a>
+        <div class="d-flex justify-content-center div-logo">
+            <a href="{% url "sobreMi" %}"><img class="img-logo" src="{% static "img/LogoLucia.PNG" %}" alt="Descripción de la imagen"></a>
+        </div>
+        <div class= "nav-bar-personalizada">
+            <div>
+                <a class="contenido navbar-brand" href="{% url "diseños" %}">Diseños</a>
+                <a class="contenido navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
+                <a class="contenido navbar-brand" href="{% url "peticionesForm" %}">Peticiones</a>
             </div>
-            <div class= "nav-bar-personalizada">
-                <div>
-                    <a class="contenido navbar-brand" href="{% url "diseños" %}">Diseños</a>
-                    <a class="contenido navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
-                    <a class="contenido navbar-brand" href="{% url "peticionesForm" %}">Peticiones</a>
-                </div>
-                {% if request.user.is_authenticated %}
-                <div>
-                    <a class="contenido navbar-brand" href="{% url "logout" %}">Cerrar Sesion</a>
-                </div>
-                {%else%}
-                <div>
-                    <a class="contenido navbar-brand" href="{% url "login" %}">Inicio Sesión</a>
-                </div>
-                {%endif%}
+            {% if request.user.is_authenticated %}
+            <div>
+                <a class="contenido navbar-brand" href="{% url "logout" %}">Cerrar Sesion</a>
             </div>
+            {%else%}
+            <div>
+                <a class="contenido navbar-brand" href="{% url "login" %}">Inicio Sesión</a>
+            </div>
+            {%endif%}
+        </div>
     </nav>
     {% block contenido %}
     {% endblock  %}

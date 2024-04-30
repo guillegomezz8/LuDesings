@@ -5,6 +5,7 @@
     <div class="divider d-flex align-items-center my-4">
         <h4 class="contenido text-center fw-bold mx-3 mb-0">Peticion</h4>
     </div>
+    <p class="contenido-segundario text-center">Aquí puedes enviar tus peticiones proporcionando una breve descripción de lo que necesitas.</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

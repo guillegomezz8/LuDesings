@@ -2,6 +2,7 @@
     border: 3px solid #f1d1ff;
     border-radius: 10px;
     padding: 20px;
+    height: fit-content;
 }
 
 .bt-login {
@@ -12,6 +13,13 @@
 .contenido {
     font-family: "Merriweather", serif;
     font-weight: 900;
+    font-style: normal;
+    color: rgb(87, 42, 118);
+}
+
+.contenido-segundario{
+    font-family: "Merriweather", serif;
+    font-weight: 200;
     font-style: normal;
     color: rgb(87, 42, 118);
 }

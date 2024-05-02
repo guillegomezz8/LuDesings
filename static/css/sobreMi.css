@@ -13,6 +13,7 @@
 .contenedor-personalizado{
     border: 3px solid #f1d1ff;
     border-radius: 10px;
+    height: fit-content;
 }
 
 .iconos-sociales img{ 

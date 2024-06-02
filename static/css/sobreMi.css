@@ -1,26 +1,42 @@
-.img-sobreMi{
-    width: 75%;
+.img-sobreMi {
+    width: 100%;
+    max-width: 75%; 
     height: auto;
+    border-radius: 5px;
 }
 
-.contenido{
+.contenido {
     font-family: "Merriweather", serif;
     font-weight: 900;
     font-style: normal;
     color: rgb(87, 42, 118);
 }
 
-.contenedor-personalizado{
+.contenedor-personalizado {
     border: 3px solid #f1d1ff;
     border-radius: 10px;
+    padding: 20px;
     height: fit-content;
 }
 
-.iconos-sociales img{ 
-    transition:all 0.5s ease-out; border-radius:50px;
+.iconos-sociales {
+    display: flex;
+    justify-content: center; 
+    gap: 10px;
 }
 
-.iconos-sociales img:hover{
+.iconos-sociales img { 
+    transition: all 0.5s ease-out; 
+    border-radius: 50px;
+    width: 45px; 
+    height: 45px;
+}
+
+.iconos-sociales img:hover {
     box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
-    transform:translate(0px, -10px); 
+    transform: translate(0px, -10px); 
+}
+
+@media (max-width: 768px) {
+/*Hacer responsive*/
 }

@@ -20,14 +20,15 @@ def crear_diseño(request):
             nombre = form.cleaned_data['nombre']
             descripcion = form.cleaned_data['descripccion']
             imagen_principal = form.cleaned_data['imagen_principal']
-            imagenes_adicionales = request.FILES.getlist('imagenes_adicionales')
+            imagenes_adicionales = form.cleaned_data['imagenes_adicionales']
 
             diseño = Diseño.objects.create(nombre=nombre, descripccion=descripcion, imagen_principal=imagen_principal)
 
             for imagen_adicional in imagenes_adicionales:
                 imagen_adicional_obj = Imagen.objects.create(imagen=imagen_adicional)
                 diseño.imagenes_adicionales.add(imagen_adicional_obj)
-            return redirect('diseños')  
+
+            return redirect('diseños') 
     else:
         form = DiseñoForm()
     return render(request, 'diseñoCrear.html', {'form': form})

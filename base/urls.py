@@ -7,7 +7,7 @@ from django.conf import settings
 urlpatterns = [
     path('', views.sobreMi, name='sobreMi'),
     path('peticiones/', views.peticionesForm, name='peticionesForm'),
-    path('listado_peticiones/', views.peticionesList, name='peticionesList'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

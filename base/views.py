@@ -30,6 +30,7 @@ def peticionesForm(request):
     return render(request, 'peticionesForm.html', {'form': form})
 
 @user_passes_test(es_administrador)
-def peticionesList(request):
+def dashboard(request):
+    ##usuarios = User.
     peticiones = Peticion.objects.all()
-    return render(request, 'peticionesList.html', {'peticones': peticiones})
+    return render(request, 'dashboard.html', {'peticiones': peticiones})

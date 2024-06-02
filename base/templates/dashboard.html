@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{%load static%}
+{% block contenido %}
+<div class="container">
+    <div class="row">
+      <div class="contenedor-personalizado col-sm-5 col-md-6">
+        <div class="divider d-flex align-items-center my-4">
+            <h4 class="contenido text-center fw-bold mx-3 mb-0">Listado de usuarios</h4>
+        </div>
+        {%if usuarios%}
+            {%for p in peticiones%}
+            {%endfor%}
+        {%else%}
+        <p class="text-center">No hay usuarios</p>
+        {% endif %}
+      </div>
+      <div class="contenedor-personalizado col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+        <div class="divider d-flex align-items-center my-4">
+            <h4 class="contenido text-center fw-bold mx-3 mb-0">Listado de peticiones</h4>
+        </div>
+        {%if peticiones%}
+            {%for p in peticiones%}
+            <p class="text-center">{{p.asunto}}</p>
+            {%endfor%}
+        {%else%}
+        <p class="text-center">No hay peticiones</p>
+        {% endif %}
+      </div>
+    </div>
+</div>
+<link rel="stylesheet" href="{%static 'css/dashboard.css'%}"/>
+{%endblock%} 

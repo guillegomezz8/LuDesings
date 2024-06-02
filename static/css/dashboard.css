@@ -1,0 +1,21 @@
+.contenedor-personalizado {
+    border: 3px solid #f1d1ff;
+    border-radius: 10px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 2px;
+background: #f1d1ff;
+}
+
+.contenido{
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: normal;
+    color: rgb(87, 42, 118);
+}

@@ -21,6 +21,7 @@
             </div>
             {% if request.user.is_authenticated %}
             <div>
+                <a class="contenido navbar-brand" href="{% url "dashboard" %}">Dashboard</a>
                 <a class="contenido navbar-brand" href="{% url "logout" %}">Cerrar Sesion</a>
             </div>
             {%else%}

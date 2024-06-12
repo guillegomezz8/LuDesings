@@ -19,3 +19,16 @@ background: #f1d1ff;
     font-style: normal;
     color: rgb(87, 42, 118);
 }
+
+.left {
+    width: 48%;
+    background-color: #f7f7f7;
+    border-radius: 15px;
+    padding: 20px;
+}
+.right {
+    width: 48%;
+    background-color: #f7f7f7;
+    border-radius: 15px;
+    padding: 20px;
+}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import PeticionesForm
 from django.contrib.auth.decorators import user_passes_test
 from .models import Peticion
+from django.contrib.auth.models import User
 
 # Create your views here.
 def es_administrador(user):
@@ -31,6 +32,11 @@ def peticionesForm(request):
 
 @user_passes_test(es_administrador)
 def dashboard(request):
-    ##usuarios = User.
     peticiones = Peticion.objects.all()
-    return render(request, 'dashboard.html', {'peticiones': peticiones})
+    usuarios = User.objects.all()
+    return render(request, 'dashboard.html', {'peticiones': peticiones, 'usuarios': usuarios})
+
+
+@user_passes_test(es_administrador)
+def peticionesDetalles(request):
+    return render(request, 'peticionesDetalles.html',)

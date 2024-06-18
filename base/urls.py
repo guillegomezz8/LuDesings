@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.sobreMi, name='sobreMi'),
     path('peticiones/', views.peticionesForm, name='peticionesForm'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('peticion/{$id}', views.peticionesDetalles, name ='peticionesDetalles')
+    path('peticion/<int:pk>/', views.peticionesDetalles, name ='peticionesDetalles')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

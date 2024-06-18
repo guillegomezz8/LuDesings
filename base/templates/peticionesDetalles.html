@@ -1,4 +1,29 @@
-{%extends base.html%}
+{% extends "base.html" %}
 {% load static %}
 {% block contenido %}
-{%endblock%}
+<div class="mb-5 container contenedor-personalizado mx-auto col-md-6">
+    <div class="divider d-flex align-items-center my-4">
+        <h4 class="contenido text-center fw-bold mx-3 mb-0">{{ peticion.asunto }}</h4>
+    </div>
+    <p class="contenido text-center">{{ peticion.peticion }}</p>
+    <p class="contenido-segundario">Peticion de {{ peticion.email }}</p>
+</div>
+<div class="container contenedor-personalizado mx-auto col-md-6">
+    <h4 class="contenido">Responder a la petición</h4>
+    <form method="post" action="{% url 'peticionesDetalles' peticion.pk %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="text" class="form-control form-control-lg" name="respuesta" placeholder="Escribe tu respuesta aquí">
+        </div>
+        <div class="mt-3 text-center pt-2 align-items-center">
+            <button type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Enviar Respuesta</button>
+        </div>
+    </form>
+</div>
+<div class="mt-3 mb-5 d-flex justify-content-end pt-2 align-items-center">
+    <div class="ms-auto me-5">
+        <a href="{% url 'dashboard' %}" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/diseñoForm.css' %}"/>
+{% endblock %}

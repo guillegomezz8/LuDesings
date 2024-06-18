@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PeticionesForm
 from django.contrib.auth.decorators import user_passes_test
 from .models import Peticion
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
 
 # Create your views here.
 def es_administrador(user):
@@ -38,5 +41,16 @@ def dashboard(request):
 
 
 @user_passes_test(es_administrador)
-def peticionesDetalles(request):
-    return render(request, 'peticionesDetalles.html',)
+def peticionesDetalles(request, pk):
+    peticion = get_object_or_404(Peticion, pk=pk)
+    
+    if request.method == 'POST':
+        respuesta = request.POST.get('respuesta')
+        subject = f'Peticion LuJapon'
+        from_email = settings.EMAIL_HOST_USER
+        message = render_to_string('email/respuestaPeticion.txt', {
+            'respuesta': respuesta,
+        })
+        send_mail(subject, message, from_email, [peticion.email], fail_silently=False)
+        return redirect('dashboard')
+    return render(request, 'peticionesDetalles.html', {'peticion': peticion})

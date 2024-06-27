@@ -3,14 +3,25 @@ from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from .models import Diseño,Imagen
 from .forms import DiseñoForm
+from django.http import JsonResponse
 
 # Create your views here.
 def es_administrador(user):
     return user.is_authenticated and user.is_staff
 
 def diseños(request):
-    diseños = Diseño.objects.all()
-    return render(request, 'diseños.html',{'diseños': diseños})
+    orden = request.GET.get('orden', 'fecha_reciente')  # Valor por defecto es 'fecha_reciente'
+
+    if orden == 'fecha_reciente':
+        diseños = Diseño.objects.all().order_by('-fecha_subida')
+    elif orden == 'fecha_antigua':
+        diseños = Diseño.objects.all().order_by('fecha_subida')
+    elif orden == 'popularidad':
+        diseños = Diseño.objects.all().order_by('-popularidad')
+    else:
+        diseños = Diseño.objects.all().order_by('-fecha_subida')  # Valor por defecto
+
+    return render(request, 'diseños.html',{'diseños': diseños, 'orden': orden})
 
 @user_passes_test(es_administrador)
 def crear_diseño(request):
@@ -28,10 +39,13 @@ def crear_diseño(request):
                 imagen_adicional_obj = Imagen.objects.create(imagen=imagen_adicional)
                 diseño.imagenes_adicionales.add(imagen_adicional_obj)
 
-            return redirect('diseños') 
+            return redirect('diseños')
     else:
         form = DiseñoForm()
-    return render(request, 'diseñoCrear.html', {'form': form})
+    
+    referer = request.META.get('HTTP_REFERER', '/')
+    
+    return render(request, 'diseñoCrear.html', {'form': form, 'referer': referer})
 
 @user_passes_test(es_administrador)
 def borrar_diseño(request, pk):
@@ -72,3 +86,11 @@ def detalle_diseño(request,pk):
     diseño = get_object_or_404(Diseño, pk=pk)
     imagenes = diseño.todas_las_imagenes()
     return render(request, 'diseñoDetalle.html',{'diseño': diseño,'imagenes': imagenes})
+
+def like_diseno(request, diseno_id):
+    if request.method == 'POST':
+        diseno = get_object_or_404(Diseño, id=diseno_id)
+        diseno.popularidad += 1
+        diseno.save()
+        return JsonResponse({'popularidad': diseno.popularidad})
+    return JsonResponse({'error': 'Invalid request'}, status=400)

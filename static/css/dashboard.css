@@ -32,3 +32,9 @@ background: #f1d1ff;
     border-radius: 15px;
     padding: 20px;
 }
+
+.btn-outline-custom {
+    background-color: #f1d1ff;
+    padding-left: 2.5rem; 
+    padding-right: 2.5rem;
+}

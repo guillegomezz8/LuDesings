@@ -2,7 +2,10 @@
 {% load static %}
 {% block contenido %}
 <div class="container">
-  <div class="container px-4">
+  <div class="text-center pt-2 align-items-center">
+    <a href="{% url "crear" %}" type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Añadir Diseño</a>
+  </div>
+  <div class="mt-5 container px-4">
     <div class="row gx-5">
       <div class="col">
        <div class="contenedor-personalizado">
@@ -11,7 +14,9 @@
           </div>
           {% if usuarios %}
               {% for u in usuarios %}
-                <a class="contenido text-center"><p>{{ u.username }}</a>
+              <div class="row mt-2">
+                <a class="contenido text-center">{{ u.username }}</a>
+              </div>
               {% endfor %}
           {% else %}
               <a class="contenido text-center">No hay usuarios</a>
@@ -25,7 +30,9 @@
           </div>
           {% if peticiones %}
               {% for p in peticiones %}
+              <div class="row mt-2">
                 <a href = "{% url 'peticionesDetalles' p.id %}" class="contenido text-center">{{ p.asunto }}</a>
+              </div>
               {% endfor %}
           {% else %}
               <a class="contenido text-center">No hay peticiones</a>

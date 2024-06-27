@@ -31,7 +31,10 @@ def peticionesForm(request):
             return redirect('sobreMi')
     else:
         form = PeticionesForm()
-    return render(request, 'peticionesForm.html', {'form': form})
+    
+    referer = request.META.get('HTTP_REFERER', '/')
+
+    return render(request, 'peticionesForm.html', {'form': form,'referer': referer})
 
 @user_passes_test(es_administrador)
 def dashboard(request):

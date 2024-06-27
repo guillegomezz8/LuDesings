@@ -1,6 +1,6 @@
-{%extends "base.html" %}
-{% load static%}
-{%block contenido%}
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
 <div class="mb-2 container contenedor-personalizado mx-auto col-md-6">
     <div class="divider d-flex align-items-center my-4">
         <h4 class="contenido text-center fw-bold mx-3 mb-0">Crear Diseño</h4>
@@ -15,9 +15,8 @@
 </div>
 <div class="mt-1 mb-5 d-flex justify-content-end pt-2 align-items-center">
     <div class="ms-auto me-5">
-        <a href="{% url 'diseños' %}" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
+        <a href="{{ referer }}" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
     </div>
 </div>
-<link rel="stylesheet" href="{%static 'css/diseñoForm.css'%}"/>
-{%endblock%}
-
+<link rel="stylesheet" href="{% static 'css/diseñoForm.css' %}"/>
+{% endblock %}

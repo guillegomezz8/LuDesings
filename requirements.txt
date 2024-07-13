@@ -39,3 +39,5 @@ win-inet-pton
 wincertstore==0.2
 yagmail==0.15.293
 zipp==3.17.0
+django-debug-toolbar
+

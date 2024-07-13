@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{%load static%}
+{% block contenido %}
+<div class="mb-5 container contenedor-personalizado mx-auto col-md-6">
+    <div class="divider d-flex align-items-center my-4">
+        <h4 class="contenido text-center fw-bold mx-3 mb-0">Peticion</h4>
+    </div>
+    <p class="contenido-segundario text-center">Aquí puedes enviar tus peticiones proporcionando una breve descripción de lo que necesitas.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center mt-4 pt-2 align-items-center">
+            <button type="submit" value="Login" class="contenido btn btn-outline-custom btn-lg bt-login">Enviar Peticion</button>
+        </div>    
+    </form>
+</div>
+<div class="mt-1 mb-5 d-flex justify-content-end pt-2 align-items-center">
+    <div class="ms-auto me-5">
+        <a href="{{ referer }}" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
+    </div>
+</div>
+<link rel="stylesheet" href="{%static 'css/diseñoForm.css'%}"/>
+{%endblock%}

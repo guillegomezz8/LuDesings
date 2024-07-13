@@ -31,6 +31,13 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "lujapondesings@gmail.com"
+EMAIL_HOST_PASSWORD = 'pbib vugj hsvb qhhn'
+EMAIL_USE_TLS = True
+
 
 # Application definition
 
@@ -45,6 +52,7 @@ INSTALLED_APPS = [
     'diseños',
     'usuarios',
     'bootstrap5',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'LuDesigns.urls'
@@ -140,3 +149,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

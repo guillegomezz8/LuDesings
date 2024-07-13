@@ -1,0 +1,10 @@
+Buenas soy Lucia,
+
+Le informamo que he recibido su peticion y queria comentarle lo siguiente:
+
+{{respuesta}}
+
+Si tiene alguna pregunta o necesita más información, no dude en ponerse en contacto conmigo.
+
+Atentamente,
+Lucia

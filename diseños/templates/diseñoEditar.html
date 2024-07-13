@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="mb-2 container contenedor-personalizado mx-auto col-md-8">
+    <div class="divider d-flex align-items-center my-4">
+        <h4 class="contenido text-center fw-bold mx-3 mb-0">Editar Diseño</h4>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if diseño.imagenes_adicionales.all %}
+            <label>Imágenes adicionales existentes (Marque para borrar):</label>
+            <div class="row mt-2 mb-2">
+                {% for imagen in diseño.imagenes_adicionales.all %}
+                <div class="col-md-6"> 
+                    <div class="mb-3 border-custom"> 
+                        <div class="row g-0 align-items-center justify-content-center">
+                            <div class="col-md-10">
+                                <input type="checkbox" class="form-check-input" name="eliminar_imagenes" value="{{ imagen.id }}">
+                                <img src="{{ imagen.imagen.url }}" class="img-principal img-fluid rounded-start"></img>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="text-center mt-4 pt-2 align-items-center">
+            <button type="submit" value="Login" class="contenido btn btn-outline-custom btn-lg bt-login">Guardar Cambios</button>
+        </div>  
+    </form>
+</div>
+<div class="mt-1 mb-5 d-flex justify-content-end pt-2 align-items-center">
+    <div class="ms-auto me-5">
+        <a href="{% url 'diseños' %}" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/diseñoForm.css' %}"/>
+{% endblock %}

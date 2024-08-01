@@ -1,0 +1,21 @@
+.img-principal{
+    width: 50%;
+    height: auto;
+}
+
+.contenedor-personalizado {
+    border: 3px solid #f1d1ff;
+    border-radius: 10px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.col-r{
+    border-right: 3px solid #f1d1ff;
+}
+
+.btn-outline-custom {
+    background-color: #f1d1ff;
+    padding-left: 2.5rem; 
+    padding-right: 2.5rem;
+}

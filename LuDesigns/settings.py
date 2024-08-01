@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-n*0bj#$!a*@4f%5slbwy3goqpy=o7cjvau0hi0*a5c1xit*1#6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["luroja.pythonanywhere.com"]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -39,7 +39,7 @@ EMAIL_HOST_PASSWORD = 'pbib vugj hsvb qhhn'
 EMAIL_USE_TLS = True
 
 
-# Application definition
+# Application definition    
 
 INSTALLED_APPS = [
     'django.contrib.admin',

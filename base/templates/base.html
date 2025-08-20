@@ -1,12 +1,21 @@
 {% load static %}
 {% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
+  <meta charset="utf-8" />
   <title>LuJapon</title>
-  <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
-  <link rel="icon" href="{%static 'img/LogoLucia.PNG'%}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="{% static 'img/LogoLucia.PNG' %}" />
+  {% bootstrap_css %}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+  {% block extra_css %}{% endblock %}
 </head>
 <body>
     <nav class="navbar bg-body-tertiary">
@@ -36,9 +45,7 @@
     <div class="footer">
         <a href="https://www.instagram.com/guillegomezz8/" class="contenido">Pagina Web creada por Guillermo Gomez</a>
     </div>
-    <link rel="stylesheet" href="{%static 'css/base.css'%}"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  {% bootstrap_javascript %}
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

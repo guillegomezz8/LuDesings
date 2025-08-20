@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/diseñoForm.css' %}" />
+{% endblock %}
 {% block contenido %}
 <div class="mb-2 container contenedor-personalizado mx-auto col-md-8">
     <div class="divider d-flex align-items-center my-4">
@@ -35,5 +38,4 @@
         <a href="{% url 'diseños' %}" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
     </div>
 </div>
-<link rel="stylesheet" href="{% static 'css/diseñoForm.css' %}"/>
 {% endblock %}

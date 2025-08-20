@@ -38,5 +38,7 @@
 }
 
 @media (max-width: 768px) {
-/*Hacer responsive*/
+    .contenedor-personalizado {
+        padding: 10px;
+    }
 }

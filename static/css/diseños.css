@@ -17,6 +17,12 @@
 
 .btn-outline-custom {
     background-color: #f1d1ff;
-    padding-left: 2.5rem; 
+    padding-left: 2.5rem;
     padding-right: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
+    }
 }

@@ -37,3 +37,10 @@ flex: 1;
 height: 2px;
 background: #f1d1ff;
 }
+
+@media (max-width: 768px) {
+    .form-per {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

@@ -1,11 +1,17 @@
+
+/* Diseño listing styles */
+
 .img-principal{
     width: 100%;
     height: auto;
+    max-height: 250px;
+    object-fit: cover;
 }
 
 .card{
     width: 95%;
     border: 3px solid #f1d1ff;
+    margin: 0 auto;
 }
 
 .contenido{
@@ -19,6 +25,12 @@
     background-color: #f1d1ff;
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+}
+
+.btn-group {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 @media (max-width: 768px) {

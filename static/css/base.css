@@ -18,6 +18,10 @@
     height: auto;
 }
 
+.navbar{
+    margin-bottom: 1rem;
+}
+
 a{
     color: rgb(87, 42, 118);
     text-decoration: none;

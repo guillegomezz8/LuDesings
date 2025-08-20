@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="{% static 'css/diseños.css' %}" />
 {% endblock %}
 {% block contenido %}
-<div class="container text-center">
-    <div>
+<div class="container text-center mt-5">
+    <div class="mb-3">
         <h5 class="contenido">Ordenar por:</h5>
         <div class="btn-group" role="group">
             <a href="?orden=fecha_reciente" class="btn btn-outline-custom contenido {% if orden == 'fecha_reciente' %}active{% endif %}">Mas Reciente</a>
@@ -14,7 +14,7 @@
         </div>
     </div>
     {% if diseños %}
-        <div class="row mt-4 mb-4 row-cols-2 row-cols-md-2 g-4">
+        <div class="row mt-4 mb-4 row-cols-1 row-cols-md-2 g-4 justify-content-center">
             {% for d in diseños %}
                 <div class="col">
                     <div class="mt-3 card">

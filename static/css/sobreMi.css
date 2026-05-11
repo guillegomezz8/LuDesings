@@ -1,42 +1,130 @@
-.img-sobreMi {
-    width: 100%;
-    max-width: 75%; 
-    height: auto;
-    border-radius: 5px;
+.sobre-mi-page {
+    padding-top: 30px;
+    padding-bottom: 58px;
 }
 
-.contenido {
+.sobre-mi-panel {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(320px, 1fr);
+    gap: 30px;
+    align-items: center;
+    border: 2px solid #f1d1ff;
+    border-radius: 8px;
+    padding: 28px;
+    background: #fff;
+    box-shadow: 0 16px 34px rgba(87, 42, 118, 0.09);
+    min-width: 0;
+}
+
+.sobre-mi-media {
+    border-radius: 8px;
+    background: #fbf3ff;
+    border: 1px solid #e5b9f7;
+    padding: 14px;
+}
+
+.sobre-mi-media,
+.sobre-mi-copy {
+    min-width: 0;
+}
+
+.img-sobreMi {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    display: block;
+}
+
+.sobre-mi-copy {
+    text-align: left;
+}
+
+.sobre-mi-copy h2 {
+    margin: 0;
+    font-size: clamp(32px, 4vw, 48px);
+}
+
+.sobre-mi-copy h3 {
+    font-size: 22px;
+}
+
+.sobre-mi-texto {
+    margin: 16px 0 0;
+    color: #5f4a6d;
+    line-height: 1.9;
+}
+
+.contenido-segundario {
     font-family: "Merriweather", serif;
-    font-weight: 900;
+    font-weight: 300;
     font-style: normal;
     color: rgb(87, 42, 118);
 }
 
-.contenedor-personalizado {
-    border: 3px solid #f1d1ff;
-    border-radius: 10px;
-    padding: 20px;
-    height: fit-content;
-}
-
 .iconos-sociales {
     display: flex;
-    justify-content: center; 
     gap: 10px;
 }
 
-.iconos-sociales img { 
-    transition: all 0.5s ease-out; 
+.iconos-sociales img {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
     border-radius: 50px;
-    width: 45px; 
+    width: 45px;
     height: 45px;
 }
 
 .iconos-sociales img:hover {
-    box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
-    transform: translate(0px, -10px); 
+    box-shadow: 0 8px 18px rgba(87, 42, 118, 0.16);
+    transform: translateY(-4px);
 }
 
-@media (max-width: 768px) {
-/*Hacer responsive*/
+@media (max-width: 840px) {
+    .sobre-mi-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .sobre-mi-copy {
+        text-align: center;
+    }
+
+    .iconos-sociales {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 560px) {
+    .sobre-mi-page {
+        padding-top: 18px;
+        padding-bottom: 36px;
+    }
+
+    .sobre-mi-panel {
+        gap: 18px;
+        padding: 18px;
+    }
+
+    .sobre-mi-copy h2 {
+        font-size: 30px;
+        overflow-wrap: anywhere;
+    }
+
+    .sobre-mi-copy h3 {
+        font-size: 20px;
+    }
+
+    .sobre-mi-texto {
+        line-height: 1.75;
+    }
+}
+
+@media (max-width: 420px) {
+    .sobre-mi-panel {
+        padding: 16px;
+    }
+
+    .iconos-sociales {
+        flex-wrap: wrap;
+    }
 }

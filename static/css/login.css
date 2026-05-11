@@ -1,39 +1,147 @@
-.contenedor-personalizado {
-    border: 3px solid #f1d1ff;
-    border-radius: 10px;
-    height: fit-content;
+.auth-page {
+    padding-top: 34px;
+    padding-bottom: 58px;
 }
 
-.bt-login {
-    padding-left: 2.5rem; 
-    padding-right: 2.5rem;
+.auth-card {
+    width: min(960px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(260px, 0.78fr) minmax(320px, 1fr);
+    border: 2px solid #f1d1ff;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(87, 42, 118, 0.09);
+    min-width: 0;
 }
 
-.form-per {
-    padding-left: 8rem; 
-    padding-right: 8rem;   
+.auth-card-wide {
+    width: min(1080px, 100%);
 }
 
-.contenido{
+.auth-side {
+    padding: 34px;
+    background: #fbf3ff;
+    border-right: 2px solid #f1d1ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-side,
+.auth-form {
+    min-width: 0;
+}
+
+.auth-side h1 {
+    margin: 0;
+    font-size: clamp(34px, 5vw, 54px);
+}
+
+.auth-side p {
+    margin: 12px 0 0;
+    color: #5f4a6d;
+    line-height: 1.75;
+}
+
+.auth-form {
+    padding: 30px;
+}
+
+.auth-form label {
+    margin-bottom: 6px;
+}
+
+.auth-form p {
+    margin-bottom: 14px;
+}
+
+.auth-form p label,
+.auth-form label {
+    display: block;
     font-family: "Merriweather", serif;
     font-weight: 900;
-    font-style: normal;
     color: rgb(87, 42, 118);
 }
 
-.btn-outline-custom {
-    background-color: #f1d1ff;
+.auth-form .form-control,
+.auth-form .form-control-lg {
+    width: 100%;
+    font-size: 14px;
+    border: 2px solid #f1d1ff;
+    border-radius: 8px;
+    margin-bottom: 14px;
 }
 
-.form-control-lg {
-    font-size: 14px;
-    border: 3px solid #f1d1ff;
+.auth-form .helptext,
+.auth-form ul {
+    display: block;
+    margin: 6px 0 0;
+    padding-left: 18px;
+    color: #6a5875;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.auth-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    color: #5f4a6d;
 }
 
 .divider:after,
 .divider:before {
-content: "";
-flex: 1;
-height: 2px;
-background: #f1d1ff;
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: #f1d1ff;
+}
+
+@media (max-width: 780px) {
+    .auth-card {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-side {
+        border-right: 0;
+        border-bottom: 2px solid #f1d1ff;
+    }
+}
+
+@media (max-width: 520px) {
+    .auth-page {
+        padding-top: 18px;
+        padding-bottom: 36px;
+    }
+
+    .auth-side,
+    .auth-form {
+        padding: 22px;
+    }
+
+    .auth-side h1 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 420px) {
+    .auth-side,
+    .auth-form {
+        padding: 18px;
+    }
+
+    .auth-link .lu-btn,
+    .auth-link .btn-outline-custom {
+        width: 100%;
+    }
 }

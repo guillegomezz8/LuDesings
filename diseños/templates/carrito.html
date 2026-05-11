@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container carrito-page">
+    <div class="carrito-layout {% if not items %}carrito-layout-empty{% endif %}">
+        <section class="carrito-main">
+            <div class="carrito-heading">
+                <div>
+                    <p class="contenido carrito-kicker">Tu selección</p>
+                    <h1 class="contenido">Carrito</h1>
+                </div>
+                <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Seguir Comprando</a>
+            </div>
+
+            {% if items %}
+                <div class="carrito-lista">
+                    {% for item in items %}
+                        <article class="carrito-item">
+                            <a href="{% url 'detalle_diseño' item.diseño.pk %}" class="carrito-img-link">
+                                {% if item.diseño.imagen_principal %}
+                                    <img src="{{ item.diseño.imagen_principal.url }}" alt="{{ item.diseño.nombre }}" class="carrito-img">
+                                {% else %}
+                                    <img src="{% static 'img/default.jpg' %}" alt="{{ item.diseño.nombre }}" class="carrito-img">
+                                {% endif %}
+                            </a>
+                            <div class="carrito-info">
+                                <div class="carrito-title-row">
+                                    <a href="{% url 'detalle_diseño' item.diseño.pk %}" class="contenido">{{ item.diseño.nombre }}</a>
+                                    <strong class="contenido carrito-subtotal">{{ item.subtotal }} €</strong>
+                                </div>
+                                <p>{{ item.diseño.precio }} € unidad{% if item.talla %} · Talla {{ item.talla }}{% endif %}</p>
+                                <form method="post" action="{% url 'actualizar_carrito' item.diseño.pk %}" class="carrito-form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="item_key" value="{{ item.key }}">
+                                    <label>
+                                        <span class="contenido">Cantidad</span>
+                                        <input type="number" name="cantidad" min="1" max="{{ item.max_stock }}" value="{{ item.cantidad }}" class="form-control form-control-lg">
+                                    </label>
+                                    <label>
+                                        <span class="contenido">Talla</span>
+                                        {% if item.tallas_disponibles %}
+                                            <select name="talla" class="form-control form-control-lg">
+                                                {% for stock in item.tallas_disponibles %}
+                                                    <option value="{{ stock.talla }}" {% if stock.talla == item.talla %}selected{% endif %}>{{ stock.talla }} · {{ stock.stock }} disp.</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% else %}
+                                            <input type="text" name="talla" value="{{ item.talla }}" class="form-control form-control-lg" placeholder="Talla">
+                                        {% endif %}
+                                    </label>
+                                    <button type="submit" class="contenido lu-shop-btn lu-shop-btn-primary">Actualizar</button>
+                                    <button type="submit" name="accion" value="eliminar" class="contenido lu-shop-btn lu-shop-btn-danger">Quitar</button>
+                                </form>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="carrito-empty">
+                    <p class="contenido">Tu carrito está vacío</p>
+                    <p>Explora la tienda y guarda aquí las prendas que quieras pedir.</p>
+                    <div class="carrito-actions">
+                        <a href="{% url 'diseños' %}" class="contenido lu-btn">Ver Tienda</a>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+
+        {% if items %}
+            <aside class="carrito-summary">
+                <h2 class="contenido">Resumen</h2>
+                <div class="summary-row">
+                    <span>Productos</span>
+                    <strong>{{ items|length }}</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong>{{ total }} €</strong>
+                </div>
+                <div class="summary-note">Pago seguro con Stripe en el siguiente paso.</div>
+                <div class="carrito-total">
+                    <span class="contenido">Total</span>
+                    <strong class="contenido">{{ total }} €</strong>
+                </div>
+                <a href="{% url 'checkout' %}" class="contenido lu-btn w-100">Finalizar Pedido</a>
+            </aside>
+        {% endif %}
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/diseños.css' %}"/>
+{% endblock %}

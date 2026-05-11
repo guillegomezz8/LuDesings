@@ -2,43 +2,127 @@
 {% load static %}
 
 {% block contenido %}
-<div class="container contenedor-personalizado">
-    <div class="row align-items-center">
-        <div class="col text-center col-r">
-            {% if diseño.imagenes_adicionales.all %}
+<div class="container detalle-page">
+    <div class="detalle-layout">
+        <div class="detalle-media">
+            {% if imagenes %}
                 <div id="carouselExampleDark" class="carousel carousel-dark slide">
                     <div class="carousel-inner">
                         {% for imagen in imagenes %}
                             <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                                <img src="{{ imagen.imagen.url }}" class="img-principal img-fluid rounded-start" alt="{{ diseño.nombre }}">
+                                <img src="{{ imagen.url }}" class="detalle-img" alt="{{ diseño.nombre }}">
                             </div>
                         {% endfor %}
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                    {% if imagenes|length > 1 %}
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                    {% endif %}
                 </div>
             {% else %}
-                <img src="{{ diseño.imagen_principal.url }}" class="img-principal img-fluid rounded-start" alt="{{ diseño.nombre }}">
+                <img src="{% static 'img/default.jpg' %}" class="detalle-img" alt="{{ diseño.nombre }}">
             {% endif %}
         </div>
-        <div class="col text-center">
-            <div class="card-title">
+        <div class="detalle-info">
+            <div class="detalle-title-row">
                 <h3 class="contenido">{{ diseño.nombre }}</h3>
+                {% if not request.user.is_staff %}
+                    <a href="{% if request.user.is_authenticated %}#{% else %}{% url 'login' %}?next={{ request.get_full_path|urlencode }}{% endif %}" class="contenido like-link {% if ha_dado_like %}liked{% endif %}" data-id="{{ diseño.id }}">
+                        ❤ <span class="likes-count">{{ diseño.popularidad }}</span>
+                    </a>
+                {% endif %}
             </div>
-            <div class="contenido card-text">
-                {{ diseño.descripccion }}
+            <p class="detalle-desc">{{ diseño.descripccion }}</p>
+            <div class="detalle-meta">
+                <span>{{ diseño.get_categoria_display }}</span>
+                {% if stock_tallas %}
+                    <span>{{ stock_tallas|length }} tallas disponibles</span>
+                {% elif diseño.talla %}
+                    <span>Talla {{ diseño.talla }}</span>
+                {% endif %}
+                {% if diseño.esta_disponible %}
+                    <span>{{ diseño.stock_total }} disponibles</span>
+                {% else %}
+                    <span>Agotado</span>
+                {% endif %}
             </div>
+            <p class="contenido detalle-precio">
+                {% if diseño.precio > 0 %}
+                    {{ diseño.precio }} €
+                {% else %}
+                    Precio a consultar
+                {% endif %}
+            </p>
+            {% if request.user.is_staff %}
+                <div class="detalle-admin-actions">
+                    <a href="{% url "editar_diseño" pk=diseño.pk %}" class="contenido lu-btn">Editar Diseño</a>
+                    <a href="{% url "dashboard" %}" class="contenido lu-btn lu-btn-ghost">Volver al Panel</a>
+                </div>
+            {% elif diseño.esta_disponible %}
+                <form method="post" action="{% url 'agregar_al_carrito' diseño.pk %}" class="detalle-carrito-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{% url 'carrito' %}">
+                    <div>
+                        <label class="contenido form-label">Cantidad</label>
+                        <input type="number" name="cantidad" value="1" min="1" max="{{ diseño.stock_total }}" class="form-control form-control-lg">
+                    </div>
+                    <div>
+                        <label class="contenido form-label">Talla</label>
+                        {% if stock_tallas %}
+                            <select name="talla" class="form-control form-control-lg" required>
+                                <option value="">Elige talla</option>
+                                {% for stock in stock_tallas %}
+                                    <option value="{{ stock.talla }}">{{ stock.talla }} · {{ stock.stock }} disponibles</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <input type="text" name="talla" value="{{ diseño.talla }}" class="form-control form-control-lg" placeholder="Indica tu talla">
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="contenido lu-btn">Añadir al Carrito</button>
+                </form>
+            {% else %}
+                <p class="producto-agotado">Esta prenda no está disponible ahora mismo.</p>
+            {% endif %}
         </div>
     </div>
 </div>
 <div class="mt-3 mb-5 text-center pt-2 align-items-center">
-    <a href="{% url "diseños" %}" type="submit" class="contenido btn btn-outline-custom btn-lg bt-login">Volver Atrás</a>
+    <a href="{% url "diseños" %}" class="contenido lu-btn lu-btn-ghost">Volver a la Tienda</a>
 </div>
 <link rel="stylesheet" href="{% static 'css/diseñoDetalles.css' %}" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.like-link').click(function(event) {
+            event.preventDefault();
+            var disenoId = $(this).data('id');
+            var likeLink = $(this);
+            $.ajax({
+                url: "{% url 'like_diseno' diseno_id=0 %}".replace('0', disenoId),
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    likeLink.find('.likes-count').text(response.popularidad);
+                    likeLink.toggleClass('liked', response.liked);
+                },
+                error: function(response) {
+                    if (response.responseJSON && response.responseJSON.login_url) {
+                        window.location.href = response.responseJSON.login_url;
+                    } else {
+                        alert('Error al guardar favorito');
+                    }
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

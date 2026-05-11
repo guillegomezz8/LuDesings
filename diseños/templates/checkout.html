@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container checkout-page">
+    <header class="lu-page-header">
+        <div>
+            <p class="contenido lu-kicker">Pago seguro</p>
+            <h1 class="contenido">Finalizar Pedido</h1>
+            <p>Revisa tus datos de entrega. Después pasarás a Stripe para completar el pago con tarjeta.</p>
+        </div>
+        <a href="{% url 'carrito' %}" class="contenido lu-btn lu-btn-ghost">Volver al Carrito</a>
+    </header>
+    <div class="checkout-layout">
+        <section class="checkout-form-panel">
+                <div class="divider d-flex align-items-center my-4">
+                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Datos de entrega</h4>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if not stripe_configurado %}
+                        <div class="alert alert-warning" role="alert">
+                            Stripe no está configurado. Añade STRIPE_SECRET_KEY para activar el pago.
+                        </div>
+                    {% endif %}
+                    <div class="text-center mt-4 pt-2 align-items-center">
+                        <button type="submit" class="contenido lu-btn" {% if not stripe_configurado %}disabled{% endif %}>
+                            {% if stripe_configurado %}Pagar con Stripe{% else %}Stripe pendiente{% endif %}
+                        </button>
+                    </div>
+                </form>
+        </section>
+        <aside class="checkout-summary-panel">
+                <div class="divider d-flex align-items-center my-4">
+                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Resumen</h4>
+                </div>
+                {% for item in items %}
+                    <div class="checkout-linea">
+                        <span>{{ item.diseño.nombre }} x {{ item.cantidad }}</span>
+                        <strong>{{ item.subtotal }} €</strong>
+                    </div>
+                {% endfor %}
+                <div class="carrito-total">
+                    <span class="contenido">Total</span>
+                    <strong class="contenido">{{ total }} €</strong>
+                </div>
+                <p class="checkout-note">No se descuenta stock hasta que Stripe confirma el pago.</p>
+        </aside>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/diseñoForm.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/diseños.css' %}"/>
+{% endblock %}

@@ -5,40 +5,70 @@
 <html>
 <head>
   <title>LuJapon</title>
-  <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" href="{%static 'img/LogoLucia.PNG'%}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{%static 'css/base.css'%}"/>
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary">
-        <div class="d-flex justify-content-center div-logo">
-            <a href="{% url "sobreMi" %}"><img class="img-logo" src="{% static "img/LogoLucia.PNG" %}" alt="Descripción de la imagen"></a>
+    <nav class="tienda-nav" aria-label="Navegación principal">
+        {% with current_url=request.resolver_match.url_name %}
+        <div class="nav-shell">
+            <a class="nav-logo" href="{% url "diseños" %}" aria-label="Ir a la tienda">
+                <img class="img-logo" src="{% static "img/LogoLucia.PNG" %}" alt="LuJapon">
+            </a>
+            <div class="nav-main">
+                <a class="contenido navbar-brand {% if current_url == 'diseños' or current_url == 'detalle_diseño' %}is-active{% endif %}" href="{% url "diseños" %}">Tienda</a>
+                <a class="contenido navbar-brand {% if current_url == 'diseño_a_medida' or current_url == 'peticionesForm' %}is-active{% endif %}" href="{% url "diseño_a_medida" %}">A Medida</a>
+                <a class="contenido navbar-brand {% if current_url == 'blog' or current_url == 'blog_detalle' %}is-active{% endif %}" href="{% url "blog" %}">Blog</a>
+                <a class="contenido navbar-brand {% if current_url == 'sobreMi' %}is-active{% endif %}" href="{% url "sobreMi" %}">Sobre Mí</a>
+            </div>
+            <div class="nav-user">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
+                        <span class="nav-role nav-role-admin">Administrador</span>
+                        <a class="contenido navbar-brand nav-admin {% if current_url == 'dashboard' %}is-active{% endif %}" href="{% url "dashboard" %}">Panel</a>
+                    {% else %}
+                        <a class="contenido navbar-brand nav-cart {% if current_url == 'carrito' or current_url == 'checkout' %}is-active{% endif %}" href="{% url "carrito" %}" aria-label="Ver carrito">
+                            <span class="nav-cart-icon" aria-hidden="true">🛒</span>
+                            {% if request.session.carrito %}<span class="nav-cart-count">{{ request.session.carrito|length }}</span>{% endif %}
+                        </a>
+                        <a class="contenido navbar-brand {% if current_url == 'pedidos_usuario' or current_url == 'pedido_detalle' %}is-active{% endif %}" href="{% url "pedidos_usuario" %}">Mis Pedidos</a>
+                        <a class="contenido navbar-brand {% if current_url == 'cuenta' %}is-active{% endif %}" href="{% url "cuenta" %}">Cuenta</a>
+                        <span class="nav-role">Cliente</span>
+                    {% endif %}
+                    <a class="contenido navbar-brand" href="{% url "logout" %}">Salir</a>
+                {% else %}
+                    <a class="contenido navbar-brand nav-cart {% if current_url == 'carrito' or current_url == 'checkout' %}is-active{% endif %}" href="{% url "carrito" %}" aria-label="Ver carrito">
+                        <span class="nav-cart-icon" aria-hidden="true">🛒</span>
+                        {% if request.session.carrito %}<span class="nav-cart-count">{{ request.session.carrito|length }}</span>{% endif %}
+                    </a>
+                    <a class="contenido navbar-brand {% if current_url == 'login' %}is-active{% endif %}" href="{% url "login" %}">Entrar</a>
+                    <a class="contenido navbar-brand nav-register {% if current_url == 'registro' %}is-active{% endif %}" href="{% url "registro" %}">Registro</a>
+                {% endif %}
+            </div>
         </div>
-        <div class= "nav-bar-personalizada">
-            <div>
-                <a class="contenido navbar-brand" href="{% url "diseños" %}">Diseños</a>
-                <a class="contenido navbar-brand" href="{% url "sobreMi" %}">Sobre Mí</a>
-                <a class="contenido navbar-brand" href="{% url "peticionesForm" %}">Peticiones</a>
-            </div>
-            {% if request.user.is_authenticated %}
-            <div>
-                <a class="contenido navbar-brand" href="{% url "dashboard" %}">Dashboard</a>
-                <a class="contenido navbar-brand" href="{% url "logout" %}">Cerrar Sesion</a>
-            </div>
-            {%else%}
-            <div>
-                <a class="contenido navbar-brand" href="{% url "login" %}">Inicio Sesión</a>
-            </div>
-            {%endif%}
-        </div>
+        {% endwith %}
     </nav>
+    {% if messages %}
+        <div class="message-stack">
+            {% for message in messages %}
+                <div class="message-card message-{{ message.tags|default:'info' }}" role="alert">
+                    <strong>
+                        {% if message.tags == 'error' %}Error{% elif message.tags == 'success' %}Listo{% elif message.tags == 'warning' %}Aviso{% else %}Info{% endif %}
+                    </strong>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     {% block contenido %}
     {% endblock  %}
     <div class="footer">
-        <a href="https://www.instagram.com/guillegomezz8/" class="contenido">Pagina Web creada por Guillermo Gomez</a>
+        <a href="https://www.instagram.com/guillegomezz8/" class="contenido">Página web creada por Guillermo Gomez</a>
     </div>
-    <link rel="stylesheet" href="{%static 'css/base.css'%}"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </body>
 </html>

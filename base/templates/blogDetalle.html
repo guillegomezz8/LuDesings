@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container blog-detail-page">
+    <article class="blog-detail">
+        <div class="blog-detail-header">
+            <p class="blog-date">{{ entrada.fecha_publicacion|date:"d/m/Y" }}</p>
+            <h1 class="contenido">{{ entrada.titulo }}</h1>
+            {% if entrada.entradilla %}
+                <p class="blog-lead">{{ entrada.entradilla }}</p>
+            {% endif %}
+        </div>
+        {% if entrada.imagen %}
+            <img src="{{ entrada.imagen.url }}" class="blog-detail-img" alt="{{ entrada.titulo }}">
+        {% endif %}
+        <div class="blog-content">
+            {{ entrada.contenido|linebreaks }}
+        </div>
+        <div class="blog-detail-actions">
+            <a href="{% url 'blog' %}" class="contenido lu-btn lu-btn-ghost">Volver al Blog</a>
+            <a href="{% url 'diseño_a_medida' %}" class="contenido lu-btn">Pedir a Medida</a>
+        </div>
+    </article>
+
+    {% if recientes %}
+        <aside class="blog-related">
+            <h2 class="contenido">Más entradas</h2>
+            <div class="blog-related-grid">
+                {% for reciente in recientes %}
+                    <a href="{% url 'blog_detalle' reciente.slug %}" class="blog-related-card">
+                        <span>{{ reciente.fecha_publicacion|date:"d/m/Y" }}</span>
+                        <strong class="contenido">{{ reciente.titulo }}</strong>
+                    </a>
+                {% endfor %}
+            </div>
+        </aside>
+    {% endif %}
+</div>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}"/>
+{% endblock %}

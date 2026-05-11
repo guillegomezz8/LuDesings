@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container blog-page">
+    <div class="blog-header">
+        <p class="contenido blog-kicker">LuJapon Journal</p>
+        <h1 class="contenido">Blog</h1>
+        <p>Ideas, procesos, inspiración y consejos para prendas a medida.</p>
+    </div>
+
+    {% if entradas %}
+        <div class="blog-grid">
+            {% for entrada in entradas %}
+                <article class="blog-card">
+                    <a href="{% url 'blog_detalle' entrada.slug %}" class="blog-card-media">
+                        {% if entrada.imagen %}
+                            <img src="{{ entrada.imagen.url }}" alt="{{ entrada.titulo }}">
+                        {% else %}
+                            <img src="{% static 'img/LogoLucia.PNG' %}" alt="{{ entrada.titulo }}">
+                        {% endif %}
+                    </a>
+                    <div class="blog-card-body">
+                        <p class="blog-date">{{ entrada.fecha_publicacion|date:"d/m/Y" }}</p>
+                        <a href="{% url 'blog_detalle' entrada.slug %}">
+                            <h2 class="contenido">{{ entrada.titulo }}</h2>
+                        </a>
+                        <p>{{ entrada.entradilla|default:entrada.contenido|truncatewords:24 }}</p>
+                        <a href="{% url 'blog_detalle' entrada.slug %}" class="contenido blog-read">Leer entrada</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="lu-empty">
+            <p class="contenido">Todavía no hay entradas publicadas.</p>
+            <p>Pronto aparecerán ideas, guías de tallas y procesos de diseño.</p>
+            {% if request.user.is_staff %}
+                <a href="/admin/base/entradablog/add/" class="contenido lu-btn">Crear Entrada</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}"/>
+{% endblock %}

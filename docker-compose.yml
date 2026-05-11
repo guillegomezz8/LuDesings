@@ -1,0 +1,19 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ludesigns-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      DJANGO_SETTINGS_MODULE: LuDesigns.settings
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,0.0.0.0
+      DJANGO_DEBUG: "True"
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      STRIPE_CURRENCY: ${STRIPE_CURRENCY:-eur}
+      PYTHONUNBUFFERED: "1"
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]

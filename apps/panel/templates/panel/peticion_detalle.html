@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container form-page">
+    <header class="lu-page-header">
+        <div>
+            <p class="contenido lu-kicker">Solicitud a medida</p>
+            <h1 class="contenido">{{ peticion.asunto }}</h1>
+            <p>{{ peticion.nombre_cliente|default:"Cliente sin nombre" }} · {{ peticion.email }}</p>
+        </div>
+        <span class="lu-status">{{ peticion.get_estado_display }}</span>
+    </header>
+
+    <section class="peticion-detail-layout">
+        <article class="contenedor-personalizado peticion-detail-panel">
+            <div class="divider d-flex align-items-center my-4">
+                <h4 class="contenido text-center fw-bold mx-3 mb-0">Brief del diseño</h4>
+            </div>
+            <p class="peticion-texto">{{ peticion.peticion }}</p>
+            <div class="peticion-meta-grid">
+                <p><strong class="contenido">Cliente:</strong> {{ peticion.nombre_cliente|default:"Sin nombre" }}</p>
+                <p><strong class="contenido">Email:</strong> {{ peticion.email }}</p>
+                {% if peticion.telefono %}
+                    <p><strong class="contenido">Teléfono:</strong> {{ peticion.telefono }}</p>
+                {% endif %}
+                <p><strong class="contenido">Prenda:</strong> {{ peticion.get_tipo_prenda_display }}</p>
+                {% if peticion.talla_aproximada %}
+                    <p><strong class="contenido">Talla:</strong> {{ peticion.talla_aproximada }}</p>
+                {% endif %}
+                {% if peticion.presupuesto %}
+                    <p><strong class="contenido">Presupuesto:</strong> {{ peticion.presupuesto }} €</p>
+                {% endif %}
+                {% if peticion.fecha_evento %}
+                    <p><strong class="contenido">Evento:</strong> {{ peticion.fecha_evento|date:"d/m/Y" }}</p>
+                {% endif %}
+                {% if peticion.usuario %}
+                    <p><strong class="contenido">Cuenta:</strong> {{ peticion.usuario.username }}</p>
+                {% endif %}
+            </div>
+        </article>
+
+        <aside class="contenedor-personalizado peticion-reply-panel">
+            <div class="divider d-flex align-items-center my-4">
+                <h4 class="contenido text-center fw-bold mx-3 mb-0">Responder</h4>
+            </div>
+            <form method="post" action="{% url 'peticionesDetalles' peticion.pk %}">
+                {% csrf_token %}
+                <label class="contenido" for="respuesta">Mensaje para el cliente</label>
+                <textarea id="respuesta" class="form-control form-control-lg" name="respuesta" rows="5" placeholder="Escribe tu respuesta aquí"></textarea>
+                <div class="mt-3 text-center pt-2 align-items-center">
+                    <button type="submit" class="contenido lu-btn">Enviar Respuesta</button>
+                </div>
+            </form>
+            <a href="{% url 'dashboard' %}" class="contenido lu-btn lu-btn-ghost w-100 mt-3">Volver al Panel</a>
+        </aside>
+    </section>
+</div>
+<link rel="stylesheet" href="{% static 'css/pages/formularios.css' %}"/>
+{% endblock %}

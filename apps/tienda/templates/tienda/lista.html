@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container tienda-page">
+    <header class="lu-page-header tienda-header">
+        <div>
+            <p class="contenido lu-kicker">Colección LuJapon</p>
+            <h1 class="contenido">Tienda</h1>
+            <p>Prendas disponibles, piezas únicas y diseños listos para reservar con pago online.</p>
+        </div>
+        {% if request.user.is_staff %}
+            <a href="{% url "crear" %}" class="contenido lu-btn">Añadir Diseño</a>
+        {% else %}
+            <a href="{% url "diseño_a_medida" %}" class="contenido lu-btn lu-btn-ghost">Pedir a Medida</a>
+        {% endif %}
+    </header>
+
+    <form method="get" class="tienda-filtros">
+        <input type="hidden" name="orden" value="{{ orden }}">
+        <div>
+            <label class="contenido form-label">Buscar</label>
+            <input type="text" name="q" value="{{ busqueda }}" class="form-control form-control-lg" placeholder="Vestido, traje, camiseta...">
+        </div>
+        <div>
+            <label class="contenido form-label">Categoría</label>
+            <select name="categoria" class="form-control form-control-lg">
+                <option value="">Todas</option>
+                {% for valor, etiqueta in categorias %}
+                    <option value="{{ valor }}" {% if categoria == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <label class="contenido tienda-check">
+            <input type="checkbox" class="form-check-input" name="disponibles" value="1" {% if solo_disponibles %}checked{% endif %}>
+            Solo disponibles
+        </label>
+        <button type="submit" class="contenido lu-shop-btn lu-shop-btn-primary">Filtrar</button>
+    </form>
+
+    <div class="tienda-orden">
+        <span class="contenido">Ordenar:</span>
+        <a href="?orden=fecha_reciente" class="contenido orden-pill {% if orden == 'fecha_reciente' %}is-active{% endif %}">Recientes</a>
+        <a href="?orden=popularidad" class="contenido orden-pill {% if orden == 'popularidad' %}is-active{% endif %}">Favoritos</a>
+        <a href="?orden=precio_menor" class="contenido orden-pill {% if orden == 'precio_menor' %}is-active{% endif %}">Precio menor</a>
+        <a href="?orden=precio_mayor" class="contenido orden-pill {% if orden == 'precio_mayor' %}is-active{% endif %}">Precio mayor</a>
+    </div>
+
+    {% if diseños %}
+        <div class="tienda-grid">
+            {% for d in diseños %}
+                <article class="producto-card">
+                    <a href="{% url "detalle_diseño" pk=d.pk %}" class="producto-img-link">
+                        {% if d.imagen_principal %}
+                            <img src="{{ d.imagen_principal.url }}" class="producto-img" alt="{{ d.nombre }}">
+                        {% else %}
+                            <img src="{% static 'img/default.jpg' %}" class="producto-img" alt="Imagen por defecto">
+                        {% endif %}
+                    </a>
+                    <div class="producto-info">
+                        <div class="producto-heading">
+                            <a href="{% url "detalle_diseño" pk=d.pk %}">
+                                <h5 class="contenido card-title">{{ d.nombre }}</h5>
+                            </a>
+                            {% if not request.user.is_staff %}
+                                <a href="{% if request.user.is_authenticated %}#{% else %}{% url 'login' %}?next={{ request.get_full_path|urlencode }}{% endif %}" class="contenido like-link {% if d.id in liked_ids %}liked{% endif %}" data-id="{{ d.id }}" aria-label="Favorito">
+                                    ❤ <span class="likes-count">{{ d.popularidad }}</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                        <p class="producto-desc">{{ d.descripccion }}</p>
+                        <div class="producto-meta">
+                            <span>{{ d.get_categoria_display }}</span>
+                            {% if d.tiene_stock_por_talla %}
+                                <span>Varias tallas</span>
+                            {% elif d.talla %}
+                                <span>Talla {{ d.talla }}</span>
+                            {% endif %}
+                            {% if d.esta_disponible %}<span>{{ d.stock_total }} en stock</span>{% endif %}
+                        </div>
+                        <div class="producto-compra">
+                            <strong class="contenido producto-precio">
+                                {% if d.precio > 0 %}{{ d.precio }} €{% else %}Consultar{% endif %}
+                            </strong>
+                            {% if request.user.is_staff %}
+                                <span class="producto-admin-status">{% if d.esta_disponible %}Disponible{% else %}Agotado{% endif %}</span>
+                            {% elif d.esta_disponible and d.tiene_stock_por_talla %}
+                                <form method="post" action="{% url 'agregar_al_carrito' d.pk %}" class="producto-quick-add">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="cantidad" value="1">
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                    <label class="visually-hidden" for="talla-card-{{ d.pk }}">Talla</label>
+                                    <select name="talla" id="talla-card-{{ d.pk }}" class="form-control" required>
+                                        <option value="">Talla</option>
+                                        {% for stock in d.stocks_talla.all %}
+                                            {% if stock.disponible and stock.stock > 0 %}
+                                                <option value="{{ stock.talla }}">{{ stock.talla }} · {{ stock.stock }} disp.</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit" class="contenido lu-shop-btn lu-shop-btn-primary">Añadir</button>
+                                </form>
+                            {% elif d.esta_disponible %}
+                                <form method="post" action="{% url 'agregar_al_carrito' d.pk %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="cantidad" value="1">
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                    <button type="submit" class="contenido lu-shop-btn lu-shop-btn-primary">Añadir</button>
+                                </form>
+                            {% else %}
+                                <span class="producto-agotado">Agotado</span>
+                            {% endif %}
+                        </div>
+                        {% if request.user.is_staff %}
+                            <div class="admin-actions">
+                                <a href="{% url "editar_diseño" pk=d.pk %}" class="contenido lu-shop-btn lu-shop-btn-ghost">Editar</a>
+                                <form method="post" action="{% url 'borrar_diseño' pk=d.pk %}">
+                                    {% csrf_token %}
+                                    <button class="contenido lu-shop-btn lu-shop-btn-danger">Borrar</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="lu-empty mt-4">
+            <p class="contenido">No hay prendas que mostrar</p>
+            <p>Prueba con otros filtros o solicita una pieza hecha a medida.</p>
+            <div class="lu-empty-actions">
+                <a href="{% url 'diseños' %}" class="contenido lu-btn">Ver todo</a>
+                <a href="{% url 'diseño_a_medida' %}" class="contenido lu-btn lu-btn-ghost">A Medida</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.like-link').click(function(event) {
+            event.preventDefault();
+            var disenoId = $(this).data('id');
+            var likeLink = $(this);
+            $.ajax({
+                url: "{% url 'like_diseno' diseno_id=0 %}".replace('0', disenoId),
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    likeLink.find('.likes-count').text(response.popularidad);
+                    likeLink.toggleClass('liked', response.liked);
+                },
+                error: function(response) {
+                    if (response.responseJSON && response.responseJSON.login_url) {
+                        window.location.href = response.responseJSON.login_url;
+                    } else {
+                        alert('Error al guardar favorito');
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

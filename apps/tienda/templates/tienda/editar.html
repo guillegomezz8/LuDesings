@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container form-page">
+    <header class="lu-page-header">
+        <div>
+            <p class="contenido lu-kicker">Panel de gestión</p>
+            <h1 class="contenido">Editar Diseño</h1>
+            <p>Actualiza la información de la prenda, sus imágenes y su disponibilidad.</p>
+        </div>
+        <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Volver a Tienda</a>
+    </header>
+
+    <section class="form-layout">
+        <aside class="form-help">
+            <h2 class="contenido">{{ diseño.nombre }}</h2>
+            <p>Los cambios se reflejan en la tienda al guardar. Si una imagen adicional ya no representa la prenda, márcala para borrar.</p>
+        </aside>
+        <div class="contenedor-personalizado form-panel">
+            <div class="divider d-flex align-items-center my-4">
+                <h4 class="contenido text-center fw-bold mx-3 mb-0">Datos de la prenda</h4>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% include "tienda/_stock_tallas_editor.html" %}
+                {% if diseño.imagenes_adicionales.all %}
+                    <div class="existing-images">
+                        <p class="contenido">Imágenes adicionales</p>
+                        <div class="existing-images-grid">
+                            {% for imagen in diseño.imagenes_adicionales.all %}
+                                <label class="existing-image-card">
+                                    <input type="checkbox" class="form-check-input" name="eliminar_imagenes" value="{{ imagen.id }}">
+                                    <img src="{{ imagen.imagen.url }}" class="img-principal img-fluid" alt="Imagen adicional de {{ diseño.nombre }}">
+                                    <span>Marcar para borrar</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="text-center mt-4 pt-2 align-items-center">
+                    <button type="submit" class="contenido lu-btn">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<link rel="stylesheet" href="{% static 'css/pages/formularios.css' %}"/>
+<script src="{% static 'js/stock-tallas-editor.js' %}" defer></script>
+{% endblock %}

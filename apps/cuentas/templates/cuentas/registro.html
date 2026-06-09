@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container auth-page">
+    <section class="auth-card auth-card-wide">
+        <aside class="auth-side">
+            <p class="contenido lu-kicker">Nueva cuenta</p>
+            <h1 class="contenido">Registro Cliente</h1>
+            <p>Crea tu perfil para tener pedidos, favoritos y datos de contacto en un mismo sitio.</p>
+        </aside>
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <div class="divider d-flex align-items-center my-4">
+                <h4 class="contenido text-center fw-bold mx-3 mb-0">Datos de acceso</h4>
+            </div>
+            {{ form.as_p }}
+            <button type="submit" class="contenido lu-btn auth-submit">Crear Cuenta</button>
+            <div class="auth-link">
+                <span>¿Ya tienes cuenta?</span>
+                <a class="contenido" href="{% url 'login' %}">Entrar</a>
+            </div>
+        </form>
+    </section>
+</div>
+<link rel="stylesheet" href="{% static 'css/pages/autenticacion.css' %}"/>
+{% endblock %}

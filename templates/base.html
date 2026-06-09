@@ -1,0 +1,133 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<html>
+<head>
+  <title>LuJapon</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="{%static 'img/LogoLucia.PNG'%}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{%static 'css/base.css'%}"/>
+</head>
+<body>
+    <nav class="tienda-nav" aria-label="Navegación principal">
+        {% with current_url=request.resolver_match.url_name %}
+        <div class="nav-shell">
+            <a class="nav-logo" href="{% url "diseños" %}" aria-label="Ir a la tienda">
+                <img class="img-logo" src="{% static "img/LogoLucia.PNG" %}" alt="LuJapon">
+            </a>
+            <div class="nav-main">
+                <a class="contenido navbar-brand {% if current_url == 'diseños' or current_url == 'detalle_diseño' %}is-active{% endif %}" href="{% url "diseños" %}">Tienda</a>
+                <a class="contenido navbar-brand {% if current_url == 'diseño_a_medida' or current_url == 'peticionesForm' %}is-active{% endif %}" href="{% url "diseño_a_medida" %}">A Medida</a>
+                <a class="contenido navbar-brand {% if current_url == 'blog' or current_url == 'blog_detalle' %}is-active{% endif %}" href="{% url "blog" %}">Blog</a>
+                <a class="contenido navbar-brand {% if current_url == 'sobreMi' %}is-active{% endif %}" href="{% url "sobreMi" %}">Sobre Mí</a>
+            </div>
+            <div class="nav-user">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
+                        <span class="nav-role nav-role-admin">Administrador</span>
+                        <a class="contenido navbar-brand nav-admin {% if current_url == 'dashboard' %}is-active{% endif %}" href="{% url "dashboard" %}">Panel</a>
+                    {% else %}
+                        <a class="contenido navbar-brand nav-cart {% if current_url == 'carrito' or current_url == 'checkout' %}is-active{% endif %}" href="{% url "carrito" %}" aria-label="Ver carrito">
+                            <span class="nav-cart-icon" aria-hidden="true">🛒</span>
+                            {% if request.session.carrito %}<span class="nav-cart-count">{{ request.session.carrito|length }}</span>{% endif %}
+                        </a>
+                        <a class="contenido navbar-brand {% if current_url == 'pedidos_usuario' or current_url == 'pedido_detalle' %}is-active{% endif %}" href="{% url "pedidos_usuario" %}">Mis Pedidos</a>
+                        <a class="contenido navbar-brand {% if current_url == 'cuenta' %}is-active{% endif %}" href="{% url "cuenta" %}">Cuenta</a>
+                        <span class="nav-role">Cliente</span>
+                    {% endif %}
+                    <a class="contenido navbar-brand" href="{% url "logout" %}">Salir</a>
+                {% else %}
+                    <a class="contenido navbar-brand nav-cart {% if current_url == 'carrito' or current_url == 'checkout' %}is-active{% endif %}" href="{% url "carrito" %}" aria-label="Ver carrito">
+                        <span class="nav-cart-icon" aria-hidden="true">🛒</span>
+                        {% if request.session.carrito %}<span class="nav-cart-count">{{ request.session.carrito|length }}</span>{% endif %}
+                    </a>
+                    <a class="contenido navbar-brand {% if current_url == 'login' %}is-active{% endif %}" href="{% url "login" %}">Entrar</a>
+                    <a class="contenido navbar-brand nav-register {% if current_url == 'registro' %}is-active{% endif %}" href="{% url "registro" %}">Registro</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endwith %}
+    </nav>
+    {% if messages %}
+        <div class="message-stack" aria-label="Notificaciones" aria-live="polite">
+            {% for message in messages %}
+                <div
+                    class="message-card message-{{ message.tags|default:'info' }}"
+                    role="{% if message.tags == 'error' %}alert{% else %}status{% endif %}"
+                    data-message
+                    data-timeout="{% if message.tags == 'error' %}10000{% elif message.tags == 'warning' %}8000{% else %}6000{% endif %}"
+                >
+                    <span class="message-icon" aria-hidden="true"></span>
+                    <div class="message-content">
+                        <strong>
+                            {% if message.tags == 'error' %}Ha ocurrido un error{% elif message.tags == 'success' %}Todo listo{% elif message.tags == 'warning' %}Ten en cuenta{% else %}Información{% endif %}
+                        </strong>
+                        <span>{{ message }}</span>
+                    </div>
+                    <button class="message-close" type="button" aria-label="Cerrar notificación" data-message-close>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <span class="message-progress" aria-hidden="true"></span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% block contenido %}
+    {% endblock  %}
+    <div class="footer">
+        <a href="https://www.instagram.com/guillegomezz8/" class="contenido">Página web creada por Guillermo Gomez</a>
+    </div>
+    <script>
+        document.querySelectorAll("[data-message]").forEach((message) => {
+            const closeButton = message.querySelector("[data-message-close]");
+            const timeout = Number(message.dataset.timeout) || 6000;
+            let remaining = timeout;
+            let startedAt;
+            let timer;
+            let isPaused = false;
+            let isDismissed = false;
+
+            const dismiss = () => {
+                if (isDismissed) return;
+                isDismissed = true;
+                window.clearTimeout(timer);
+                message.classList.add("is-leaving");
+                message.addEventListener("animationend", (event) => {
+                    if (event.animationName === "message-leave") message.remove();
+                });
+            };
+
+            const startTimer = () => {
+                if (isDismissed || !isPaused && timer) return;
+                window.clearTimeout(timer);
+                isPaused = false;
+                startedAt = Date.now();
+                timer = window.setTimeout(dismiss, remaining);
+                message.style.setProperty("--message-duration", `${remaining}ms`);
+                message.classList.remove("is-paused");
+            };
+
+            const pauseTimer = () => {
+                if (isDismissed || isPaused) return;
+                window.clearTimeout(timer);
+                remaining -= Date.now() - startedAt;
+                timer = null;
+                isPaused = true;
+                message.classList.add("is-paused");
+            };
+
+            closeButton.addEventListener("click", dismiss);
+            message.addEventListener("mouseenter", pauseTimer);
+            message.addEventListener("mouseleave", startTimer);
+            message.addEventListener("focusin", pauseTimer);
+            message.addEventListener("focusout", startTimer);
+            startTimer();
+        });
+    </script>
+</body>
+</html>

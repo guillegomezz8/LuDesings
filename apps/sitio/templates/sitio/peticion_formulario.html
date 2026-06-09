@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{%load static%}
+{% block contenido %}
+<div class="container a-medida-page">
+    <header class="lu-page-header">
+        <div>
+            <p class="contenido lu-kicker">Diseño personalizado</p>
+            <h1 class="contenido">A Medida</h1>
+            <p>Cuéntanos la idea, la fecha y el presupuesto. Puedes enviar una solicitud sin iniciar sesión.</p>
+        </div>
+        <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Ver Tienda</a>
+    </header>
+    <div class="row gx-5 align-items-start">
+        <div class="col-md-5 mb-4">
+            <div class="contenedor-personalizado a-medida-info">
+                <div class="divider d-flex align-items-center my-4">
+                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Diseño a Medida</h4>
+                </div>
+                <p class="contenido-segundario">
+                    Cuéntanos la idea, la ocasión, el tipo de prenda y cualquier detalle importante. No hace falta iniciar sesión.
+                </p>
+                <div class="a-medida-pasos">
+                    <p><span class="contenido">1.</span> Envías tu idea.</p>
+                    <p><span class="contenido">2.</span> Revisamos estilo, talla, fecha y presupuesto.</p>
+                    <p><span class="contenido">3.</span> Te respondemos para concretar el diseño.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="mb-5 contenedor-personalizado">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-center mt-4 pt-2 align-items-center">
+                        <button type="submit" class="contenido lu-btn">Enviar Solicitud</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/pages/formularios.css' %}"/>
+{%endblock%}

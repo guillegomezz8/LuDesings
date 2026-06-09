@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container pedido-page">
+    <header class="lu-page-header">
+        <div>
+            <p class="contenido lu-kicker">Detalle de pedido</p>
+            <h1 class="contenido">Pedido #{{ pedido.pk }}</h1>
+            <p>{{ pedido.nombre_cliente }} · {{ pedido.fecha_creacion|date:"d/m/Y" }}</p>
+        </div>
+        <div class="pedido-status">
+            <span class="lu-status">{{ pedido.get_estado_display }}</span>
+            <span class="lu-status">Pago {{ pedido.get_estado_pago_display }}</span>
+        </div>
+    </header>
+
+    <div class="pedido-detail-layout">
+        <section class="contenedor-personalizado tienda-panel">
+            <div class="divider d-flex align-items-center my-4">
+                <h4 class="contenido text-center fw-bold mx-3 mb-0">Prendas</h4>
+            </div>
+        <div class="carrito-lista">
+            {% for linea in pedido.lineas.all %}
+                <div class="carrito-item pedido-linea">
+                    <div class="carrito-info">
+                        <span class="contenido">{{ linea.nombre_producto }}</span>
+                        <p>{{ linea.precio_unitario }} € x {{ linea.cantidad }}{% if linea.talla %} · Talla {{ linea.talla }}{% endif %}</p>
+                    </div>
+                    <strong class="contenido carrito-subtotal">{{ linea.subtotal }} €</strong>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="carrito-total">
+            <span class="contenido">Total</span>
+            <strong class="contenido">{{ pedido.total }} €</strong>
+        </div>
+        </section>
+
+        <aside class="contenedor-personalizado tienda-panel pedido-side">
+            <div class="divider d-flex align-items-center my-4">
+                <h4 class="contenido text-center fw-bold mx-3 mb-0">Entrega</h4>
+            </div>
+            <p><strong class="contenido">Email:</strong> {{ pedido.email }}</p>
+            {% if pedido.telefono %}
+                <p><strong class="contenido">Teléfono:</strong> {{ pedido.telefono }}</p>
+            {% endif %}
+            <p><strong class="contenido">Dirección:</strong> {{ pedido.direccion }}, {{ pedido.ciudad }} {{ pedido.codigo_postal }}</p>
+            {% if pedido.notas %}
+                <p><strong class="contenido">Notas:</strong> {{ pedido.notas }}</p>
+            {% endif %}
+            {% if pedido.stripe_checkout_session_id %}
+                <p class="pedido-stripe">Stripe: {{ pedido.stripe_checkout_session_id }}</p>
+            {% endif %}
+        </aside>
+    </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Volver a la Tienda</a>
+        </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}"/>
+{% endblock %}

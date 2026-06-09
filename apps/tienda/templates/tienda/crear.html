@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container form-page">
+    <header class="lu-page-header">
+        <div>
+            <p class="contenido lu-kicker">Panel de gestión</p>
+            <h1 class="contenido">Crear Diseño</h1>
+            <p>Añade una prenda con precio, stock e imágenes para que aparezca en tienda.</p>
+        </div>
+        <a href="{{ referer }}" class="contenido lu-btn lu-btn-ghost">Volver</a>
+    </header>
+
+    <section class="form-layout">
+        <aside class="form-help">
+            <h2 class="contenido">Checklist</h2>
+            <p>Usa una imagen principal clara, una descripción corta y un stock real para evitar pedidos con incidencia.</p>
+        </aside>
+        <div class="contenedor-personalizado form-panel">
+            <div class="divider d-flex align-items-center my-4">
+                <h4 class="contenido text-center fw-bold mx-3 mb-0">Datos de la prenda</h4>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% include "tienda/_stock_tallas_editor.html" %}
+                <div class="text-center mt-4 pt-2 align-items-center">
+                    <button type="submit" class="contenido lu-btn">Añadir Diseño</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<link rel="stylesheet" href="{% static 'css/pages/formularios.css' %}"/>
+<script src="{% static 'js/stock-tallas-editor.js' %}" defer></script>
+{% endblock %}

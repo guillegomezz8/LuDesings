@@ -26,15 +26,15 @@
 
     <div class="tienda-toolbar">
         <div class="tienda-results">
-            <strong class="contenido">{{ diseños|length }}</strong>
-            <span>{% if diseños|length == 1 %}diseño encontrado{% else %}diseños encontrados{% endif %}</span>
+            <strong class="contenido">{{ total_diseños }}</strong>
+            <span>{% if total_diseños == 1 %}diseño encontrado{% else %}diseños encontrados{% endif %}</span>
         </div>
         <div class="tienda-orden">
             <span class="contenido tienda-orden-label">Ordenar</span>
-            <a href="?orden=fecha_reciente" class="contenido orden-pill {% if orden == 'fecha_reciente' %}is-active{% endif %}">Recientes</a>
-            <a href="?orden=popularidad" class="contenido orden-pill {% if orden == 'popularidad' %}is-active{% endif %}">Favoritos</a>
-            <a href="?orden=precio_menor" class="contenido orden-pill {% if orden == 'precio_menor' %}is-active{% endif %}">Menor €</a>
-            <a href="?orden=precio_mayor" class="contenido orden-pill {% if orden == 'precio_mayor' %}is-active{% endif %}">Mayor €</a>
+            <a href="?{% if orden_querystring %}{{ orden_querystring }}&{% endif %}orden=fecha_reciente" class="contenido orden-pill {% if orden == 'fecha_reciente' %}is-active{% endif %}">Recientes</a>
+            <a href="?{% if orden_querystring %}{{ orden_querystring }}&{% endif %}orden=popularidad" class="contenido orden-pill {% if orden == 'popularidad' %}is-active{% endif %}">Favoritos</a>
+            <a href="?{% if orden_querystring %}{{ orden_querystring }}&{% endif %}orden=precio_menor" class="contenido orden-pill {% if orden == 'precio_menor' %}is-active{% endif %}">Menor €</a>
+            <a href="?{% if orden_querystring %}{{ orden_querystring }}&{% endif %}orden=precio_mayor" class="contenido orden-pill {% if orden == 'precio_mayor' %}is-active{% endif %}">Mayor €</a>
         </div>
     </div>
 
@@ -118,6 +118,25 @@
                 </article>
             {% endfor %}
         </div>
+        {% if page_obj.has_other_pages %}
+            <nav class="tienda-pagination" aria-label="Paginación del catálogo">
+                {% if page_obj.has_previous %}
+                    <a class="contenido pagination-link" href="?{% if page_querystring %}{{ page_querystring }}&{% endif %}page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                <div class="pagination-pages">
+                    {% for num in paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <span class="contenido pagination-link is-active" aria-current="page">{{ num }}</span>
+                        {% else %}
+                            <a class="contenido pagination-link" href="?{% if page_querystring %}{{ page_querystring }}&{% endif %}page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% if page_obj.has_next %}
+                    <a class="contenido pagination-link" href="?{% if page_querystring %}{{ page_querystring }}&{% endif %}page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+            </nav>
+        {% endif %}
     {% else %}
         <div class="lu-empty mt-4">
             <p class="contenido">No hay prendas que mostrar</p>
@@ -128,7 +147,7 @@
         </div>
     {% endif %}
 </div>
-<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}?v=compact-filters-4"/>
+<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}?v=pagination-inline-6"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {

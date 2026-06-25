@@ -1,5 +1,6 @@
 from urllib.parse import quote
 
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -44,12 +45,30 @@ def diseños(request):
     else:
         diseños = diseños.order_by('-fecha_subida')
 
+    total_diseños = diseños.count()
+    paginator = Paginator(diseños, 8)
+    page_obj = paginator.get_page(request.GET.get('page'))
+
+    page_query = request.GET.copy()
+    page_query.pop('page', None)
+    page_querystring = page_query.urlencode()
+
+    orden_query = request.GET.copy()
+    orden_query.pop('orden', None)
+    orden_query.pop('page', None)
+    orden_querystring = orden_query.urlencode()
+
     liked_ids = []
     if request.user.is_authenticated:
         liked_ids = list(DisenoLike.objects.filter(usuario=request.user).values_list('diseño_id', flat=True))
 
     return render(request, 'tienda/lista.html',{
-        'diseños': diseños,
+        'diseños': page_obj.object_list,
+        'page_obj': page_obj,
+        'paginator': paginator,
+        'total_diseños': total_diseños,
+        'page_querystring': page_querystring,
+        'orden_querystring': orden_querystring,
         'orden': orden,
         'categoria': categoria,
         'categorias': Diseño.CATEGORIAS,

@@ -1,15 +1,15 @@
 .detalle-page {
-    padding-top: 24px;
+    padding-top: 18px;
     padding-bottom: 24px;
 }
 
 .detalle-layout {
     border: 2px solid #f1d1ff;
-    border-radius: 8px;
+    border-radius: 12px;
     display: grid;
     grid-template-columns: minmax(280px, 1.05fr) minmax(280px, 0.95fr);
-    gap: 26px;
-    padding: 24px;
+    gap: 22px;
+    padding: 20px;
     align-items: center;
     background: #fff;
     box-shadow: 0 14px 30px rgba(87, 42, 118, 0.08);
@@ -18,7 +18,7 @@
 
 .detalle-media {
     border-right: 3px solid #f1d1ff;
-    padding-right: 26px;
+    padding-right: 22px;
 }
 
 .detalle-media,
@@ -30,7 +30,7 @@
 
 .detalle-img {
     width: 100%;
-    max-height: 620px;
+    max-height: 560px;
     object-fit: contain;
     display: block;
 }
@@ -38,7 +38,7 @@
 .detalle-info {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
 }
 
 .detalle-title-row {
@@ -50,12 +50,15 @@
 
 .detalle-title-row h3 {
     margin: 0;
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.18;
     overflow-wrap: anywhere;
 }
 
 .detalle-desc {
     color: #5f4a6d;
     margin: 0;
+    line-height: 1.55;
 }
 
 .detalle-meta {
@@ -67,13 +70,13 @@
 .detalle-meta span {
     border: 1px solid #e5b9f7;
     border-radius: 999px;
-    padding: 5px 10px;
+    padding: 5px 9px;
     background: #fbf3ff;
     color: #5f4a6d;
 }
 
 .detalle-precio {
-    font-size: 26px;
+    font-size: 24px;
     margin: 0;
 }
 
@@ -123,9 +126,9 @@
 .size-option {
     display: grid;
     place-items: center;
-    min-width: 72px;
-    min-height: 52px;
-    padding: 7px 12px;
+    min-width: 68px;
+    min-height: 48px;
+    padding: 7px 10px;
     border: 2px solid #e5b9f7;
     border-radius: 8px;
     background: #fff;
@@ -216,18 +219,56 @@
 
 @media (max-width: 640px) {
     .detalle-page {
-        padding-top: 18px;
+        padding-top: 12px;
+        padding-bottom: 16px;
     }
 
     .detalle-layout {
-        gap: 18px;
-        padding: 18px;
+        gap: 12px;
+        padding: 12px;
+        border-width: 1px;
+        border-radius: 12px;
     }
 
-    .detalle-title-row,
+    .detalle-media {
+        border-bottom-width: 1px;
+        padding-bottom: 10px;
+    }
+
+    .detalle-img {
+        max-height: 350px;
+    }
+
+    .detalle-info {
+        gap: 9px;
+    }
+
+    .detalle-title-row {
+        align-items: flex-start;
+        flex-direction: row;
+    }
+
     .detalle-admin-actions {
         align-items: stretch;
         flex-direction: column;
+    }
+
+    .detalle-title-row h3 {
+        font-size: 24px;
+    }
+
+    .detalle-desc {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .detalle-meta {
+        gap: 6px;
+    }
+
+    .detalle-meta span {
+        padding: 5px 8px;
+        font-size: 12px;
     }
 
     .detalle-admin-actions .lu-btn,
@@ -239,19 +280,78 @@
     .detalle-precio {
         font-size: 23px;
     }
+
+    .detalle-carrito-form {
+        gap: 8px;
+    }
+
+    .detalle-tallas legend,
+    .detalle-cantidad .form-label {
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .size-options {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .size-option {
+        min-width: 0;
+        min-height: 44px;
+        padding: 7px 8px;
+        border-width: 1px;
+        font-size: 14px;
+    }
+
+    .size-option small {
+        font-size: 10.5px;
+    }
 }
 
 @media (max-width: 520px) {
     .detalle-layout {
-        padding: 16px;
+        padding: 10px;
     }
 
     .detalle-carrito-form {
         grid-template-columns: 1fr;
     }
 
+    .detalle-img {
+        max-height: 300px;
+    }
+
+    .detalle-title-row h3 {
+        font-size: 22px;
+    }
+
+    .detalle-desc {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+
+    .detalle-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .detalle-meta span {
-        width: 100%;
         text-align: center;
+    }
+
+    .detalle-carrito-form .form-control-lg {
+        min-height: 40px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    .detalle-carrito-form button {
+        min-height: 40px;
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 }

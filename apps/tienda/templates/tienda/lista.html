@@ -2,17 +2,6 @@
 {% load static %}
 {% block contenido %}
 <div class="container tienda-page">
-    <header class="lu-page-header tienda-header">
-        <div>
-            <h1 class="contenido">Tienda</h1>
-        </div>
-        {% if request.user.is_staff %}
-            <a href="{% url "crear" %}" class="contenido lu-btn">Añadir Diseño</a>
-        {% else %}
-            <a href="{% url "diseño_a_medida" %}" class="contenido lu-btn lu-btn-ghost">Pedir a Medida</a>
-        {% endif %}
-    </header>
-
     <form method="get" class="tienda-filtros">
         <input type="hidden" name="orden" value="{{ orden }}">
         <div>
@@ -139,7 +128,7 @@
         </div>
     {% endif %}
 </div>
-<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}?v=order-mobile-3"/>
+<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}?v=compact-filters-4"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {

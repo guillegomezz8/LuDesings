@@ -1,5 +1,5 @@
 .tienda-page {
-    padding-top: 24px;
+    padding-top: 18px;
     padding-bottom: 48px;
 }
 
@@ -10,14 +10,33 @@
 .tienda-filtros {
     border: 1px solid #e5b9f7;
     border-radius: 14px;
-    padding: 18px;
+    padding: 14px;
     display: grid;
     grid-template-columns: minmax(220px, 2fr) minmax(180px, 1fr) auto auto;
-    gap: 14px;
+    gap: 10px;
     align-items: end;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 12px 28px rgba(87, 42, 118, 0.07);
+    box-shadow: 0 10px 24px rgba(87, 42, 118, 0.06);
+}
+
+.tienda-filtros .form-label {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.tienda-filtros .form-control,
+.tienda-filtros .form-control-lg {
+    min-height: 42px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
+.tienda-filtros .lu-shop-btn {
+    min-height: 42px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .tienda-filtros > *,
@@ -36,7 +55,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    min-height: 48px;
+    min-height: 42px;
 }
 
 .tienda-toolbar {
@@ -900,7 +919,35 @@
 @media (max-width: 560px) {
     .tienda-filtros {
         grid-template-columns: 1fr;
-        padding: 14px;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .tienda-filtros .form-label {
+        margin-bottom: 3px;
+        font-size: 13px;
+    }
+
+    .tienda-filtros .form-control,
+    .tienda-filtros .form-control-lg {
+        min-height: 38px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        font-size: 13px;
+    }
+
+    .tienda-filtros .lu-shop-btn {
+        min-height: 38px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    .tienda-check {
+        min-height: 34px;
+        justify-content: flex-start;
+        font-size: 13px;
     }
 
     .tienda-grid {

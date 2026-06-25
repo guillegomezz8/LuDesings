@@ -2,12 +2,6 @@
 {%load static%}
 {% block contenido %}
 <div class="container a-medida-page">
-    <header class="lu-page-header">
-        <div>
-            <h1 class="contenido">Diseño a medida</h1>
-        </div>
-        <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Ver la colección</a>
-    </header>
     <div class="row gx-5 align-items-start">
         <div class="col-md-5 mb-4">
             <div class="contenedor-personalizado a-medida-info">
@@ -44,5 +38,5 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="{% static 'css/pages/formularios.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/pages/formularios.css' %}?v=compact-a-medida-2"/>
 {%endblock%}

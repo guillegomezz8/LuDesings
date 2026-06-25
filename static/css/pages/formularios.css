@@ -513,13 +513,14 @@ form p:has(.stock-size-textarea) {
 }
 
 .a-medida-page {
-    padding-top: 24px;
+    padding-top: 18px;
     padding-bottom: 48px;
 }
 
 .a-medida-info {
     position: sticky;
     top: 24px;
+    padding: 16px;
 }
 
 .a-medida-info h2,
@@ -530,7 +531,7 @@ form p:has(.stock-size-textarea) {
 
 .a-medida-info h2,
 .a-medida-form-heading h2 {
-    font-size: clamp(23px, 3vw, 30px);
+    font-size: clamp(21px, 2.6vw, 28px);
 }
 
 .a-medida-info > p:not(.lu-kicker),
@@ -542,30 +543,36 @@ form p:has(.stock-size-textarea) {
 
 .a-medida-pasos {
     display: grid;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 8px;
+    margin-top: 14px;
 }
 
 .a-medida-pasos article {
     display: grid;
-    grid-template-columns: 42px 1fr;
-    gap: 11px;
+    grid-template-columns: 36px 1fr;
+    gap: 9px;
     align-items: start;
     margin: 0;
-    padding: 12px;
+    padding: 9px;
     border: 1px solid #e5b9f7;
     border-radius: 10px;
     background: #fff;
 }
 
 .a-medida-pasos article > span {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
     display: grid;
     place-items: center;
     border-radius: 50%;
     background: #f1d1ff;
     font-size: 12px;
+}
+
+.a-medida-pasos article strong {
+    align-self: center;
+    font-size: 17px;
+    line-height: 1.25;
 }
 
 .a-medida-pasos article p {
@@ -777,6 +784,37 @@ form p:has(.stock-size-textarea) {
     .form-help,
     .peticion-reply-panel {
         padding: 16px;
+    }
+
+    .a-medida-info {
+        margin-bottom: 14px;
+        padding: 12px;
+    }
+
+    .a-medida-info h2 {
+        font-size: 24px;
+    }
+
+    .a-medida-pasos {
+        gap: 7px;
+        margin-top: 10px;
+    }
+
+    .a-medida-pasos article {
+        grid-template-columns: 30px 1fr;
+        gap: 8px;
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .a-medida-pasos article > span {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .a-medida-pasos article strong {
+        font-size: 15px;
     }
 
     .cuenta-header {

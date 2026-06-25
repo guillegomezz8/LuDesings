@@ -4,16 +4,14 @@
 <div class="container cuenta-page">
     <div class="cuenta-header">
         <div>
-            <p class="contenido cuenta-kicker">Área cliente</p>
             <h1 class="contenido">Mi Cuenta</h1>
-            <p>Actualiza tus datos, revisa pedidos y vuelve a encontrar tus prendas favoritas.</p>
         </div>
         <a href="{% url 'pedidos_usuario' %}" class="contenido lu-btn lu-btn-ghost">Ver Mis Pedidos</a>
     </div>
     <div class="cuenta-layout">
         <section class="cuenta-panel cuenta-form-panel">
-                <div class="divider d-flex align-items-center my-4">
-                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Datos de contacto</h4>
+                <div class="cuenta-panel-heading">
+                    <h2 class="contenido">Datos de contacto</h2>
                 </div>
                 <form method="post">
                     {% csrf_token %}
@@ -24,38 +22,41 @@
                 </form>
         </section>
         <section class="cuenta-panel">
-                <div class="divider d-flex align-items-center my-4">
-                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Últimos pedidos</h4>
+                <div class="cuenta-panel-heading">
+                    <h2 class="contenido">Últimos pedidos</h2>
                 </div>
                 {% if pedidos %}
                     {% for pedido in pedidos %}
                         <a href="{% url 'pedido_detalle' pedido.pk %}" class="cuenta-row">
-                            <span class="contenido">Pedido #{{ pedido.pk }}</span>
-                            <span>{{ pedido.get_estado_display }} · {{ pedido.total }} €</span>
+                            <span>
+                                <strong class="contenido">Pedido #{{ pedido.pk }}</strong>
+                                <small>{{ pedido.get_estado_display }} · {{ pedido.total }} €</small>
+                            </span>
+                            <span class="cuenta-row-arrow">→</span>
                         </a>
                     {% endfor %}
                 {% else %}
                     <div class="lu-empty">
                         <p class="contenido">Todavía no has hecho ningún pedido</p>
-                        <p>Cuando completes una compra, aparecerá aquí.</p>
                     </div>
                 {% endif %}
         </section>
         <section class="cuenta-panel">
-                <div class="divider d-flex align-items-center my-4">
-                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Mis Favoritos</h4>
+                <div class="cuenta-panel-heading">
+                    <h2 class="contenido">Mis favoritos</h2>
                 </div>
                 {% if likes %}
                     {% for like in likes %}
                         <a href="{% url 'detalle_diseño' like.diseño.pk %}" class="cuenta-row">
-                            <span class="contenido">{{ like.diseño.nombre }}</span>
-                            <span>Ver prenda</span>
+                            <span>
+                                <strong class="contenido">{{ like.diseño.nombre }}</strong>
+                            </span>
+                            <span class="cuenta-row-arrow">→</span>
                         </a>
                     {% endfor %}
                 {% else %}
                     <div class="lu-empty">
                         <p class="contenido">Aún no has guardado favoritos</p>
-                        <p>Marca prendas desde la tienda para volver a ellas rápido.</p>
                     </div>
                 {% endif %}
         </section>

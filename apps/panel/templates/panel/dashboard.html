@@ -4,9 +4,7 @@
 <div class="container dashboard-page">
   <section class="dashboard-hero">
     <div>
-      <p class="dashboard-kicker contenido">Panel de gestión</p>
       <h1 class="contenido">Administración LuJapon</h1>
-      <p class="dashboard-copy">Gestiona prendas, pedidos, solicitudes a medida y contenido editorial desde un espacio más claro.</p>
     </div>
     <div class="dashboard-actions">
       <a href="{% url "crear" %}" class="contenido lu-btn lu-btn-primary">Añadir Diseño</a>
@@ -14,11 +12,29 @@
     </div>
   </section>
 
+  <section class="dashboard-stats" aria-label="Resumen de actividad">
+    <article class="dashboard-stat stat-orders">
+      <span>Pedidos</span>
+      <strong>{{ pedidos|length }}</strong>
+    </article>
+    <article class="dashboard-stat stat-custom">
+      <span>A medida</span>
+      <strong>{{ peticiones|length }}</strong>
+    </article>
+    <article class="dashboard-stat stat-clients">
+      <span>Clientes</span>
+      <strong>{{ usuarios|length }}</strong>
+    </article>
+    <article class="dashboard-stat stat-content">
+      <span>Journal</span>
+      <strong>{{ entradas_blog|length }}</strong>
+    </article>
+  </section>
+
   <section class="dashboard-grid dashboard-grid-main">
     <article class="dashboard-panel">
       <div class="dashboard-panel-head">
         <div>
-          <p class="dashboard-kicker contenido">Pedidos</p>
           <h2 class="contenido">Seguimiento de pedidos</h2>
         </div>
       </div>
@@ -55,7 +71,6 @@
     <article class="dashboard-panel">
       <div class="dashboard-panel-head">
         <div>
-          <p class="dashboard-kicker contenido">A medida</p>
           <h2 class="contenido">Solicitudes de diseño</h2>
         </div>
       </div>
@@ -78,7 +93,6 @@
     <article class="dashboard-panel">
       <div class="dashboard-panel-head">
         <div>
-          <p class="dashboard-kicker contenido">Clientes</p>
           <h2 class="contenido">Listado de clientes</h2>
         </div>
       </div>
@@ -99,7 +113,6 @@
     <article class="dashboard-panel">
       <div class="dashboard-panel-head">
         <div>
-          <p class="dashboard-kicker contenido">Contenido</p>
           <h2 class="contenido">Edición rápida</h2>
         </div>
       </div>

@@ -4,9 +4,7 @@
 <div class="container pedido-page">
     <header class="lu-page-header">
         <div>
-            <p class="contenido lu-kicker">Área cliente</p>
             <h1 class="contenido">Mis Pedidos</h1>
-            <p>Consulta el estado de tus compras y el detalle de cada prenda.</p>
         </div>
         <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Seguir Comprando</a>
     </header>
@@ -17,21 +15,26 @@
                     <a href="{% url 'pedido_detalle' pedido.pk %}" class="pedido-card">
                         <div>
                             <strong class="contenido">Pedido #{{ pedido.pk }}</strong>
-                            <p>{{ pedido.fecha_creacion|date:"d/m/Y" }} · {{ pedido.get_estado_display }} · Pago {{ pedido.get_estado_pago_display }}</p>
+                            <p>{{ pedido.fecha_creacion|date:"d/m/Y" }}</p>
                             <p>
                                 {% for linea in pedido.lineas.all %}
                                     {{ linea.nombre_producto }}{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </p>
                         </div>
-                        <strong class="contenido">{{ pedido.total }} €</strong>
+                        <div class="pedido-card-side">
+                            <div class="pedido-card-status">
+                                <span class="lu-status status-{{ pedido.estado }}">{{ pedido.get_estado_display }}</span>
+                                <span class="lu-status payment-{{ pedido.estado_pago }}">Pago {{ pedido.get_estado_pago_display }}</span>
+                            </div>
+                            <strong class="contenido">{{ pedido.total }} €</strong>
+                        </div>
                     </a>
                 {% endfor %}
             </div>
         {% else %}
             <div class="lu-empty">
                 <p class="contenido">Todavía no has hecho ningún pedido</p>
-                <p>Cuando completes una compra aparecerá aquí con su estado.</p>
                 <a href="{% url 'diseños' %}" class="contenido lu-btn">Ir a la Tienda</a>
             </div>
         {% endif %}

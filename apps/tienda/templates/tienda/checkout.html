@@ -4,16 +4,19 @@
 <div class="container checkout-page">
     <header class="lu-page-header">
         <div>
-            <p class="contenido lu-kicker">Pago seguro</p>
             <h1 class="contenido">Finalizar Pedido</h1>
-            <p>Revisa tus datos de entrega. Después pasarás al pago seguro alojado por Stripe.</p>
         </div>
         <a href="{% url 'carrito' %}" class="contenido lu-btn lu-btn-ghost">Volver al Carrito</a>
     </header>
+    <div class="checkout-steps" aria-label="Proceso de compra">
+        <span class="is-complete"><strong>1</strong> Carrito</span>
+        <span class="is-active"><strong>2</strong> Entrega</span>
+        <span><strong>3</strong> Pago seguro</span>
+    </div>
     <div class="checkout-layout">
         <section class="checkout-form-panel">
-                <div class="divider d-flex align-items-center my-4">
-                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Datos de entrega</h4>
+                <div class="checkout-panel-heading">
+                    <h2 class="contenido">Datos de entrega</h2>
                 </div>
                 <form method="post">
                     {% csrf_token %}
@@ -25,18 +28,21 @@
                     {% endif %}
                     <div class="text-center mt-4 pt-2 align-items-center">
                         <button type="submit" class="contenido lu-btn" {% if not stripe_configurado %}disabled{% endif %}>
-                            {% if stripe_configurado %}Pagar con Stripe{% else %}Stripe pendiente{% endif %}
+                            {% if stripe_configurado %}Continuar al pago seguro{% else %}Stripe pendiente{% endif %}
                         </button>
                     </div>
                 </form>
         </section>
         <aside class="checkout-summary-panel">
-                <div class="divider d-flex align-items-center my-4">
-                    <h4 class="contenido text-center fw-bold mx-3 mb-0">Resumen</h4>
+                <div class="checkout-panel-heading">
+                    <h2 class="contenido">Resumen</h2>
                 </div>
                 {% for item in items %}
                     <div class="checkout-linea">
-                        <span>{{ item.diseño.nombre }} x {{ item.cantidad }}</span>
+                        <span>
+                            <strong>{{ item.diseño.nombre }}</strong>
+                            <small>{{ item.cantidad }} unidad{% if item.cantidad != 1 %}es{% endif %} · Talla {{ item.talla|default:"única" }}</small>
+                        </span>
                         <strong>{{ item.subtotal }} €</strong>
                     </div>
                 {% endfor %}
@@ -44,7 +50,7 @@
                     <span class="contenido">Total</span>
                     <strong class="contenido">{{ total }} €</strong>
                 </div>
-                <p class="checkout-note">Al continuar reservaremos tus prendas durante {{ reserva_minutos }} minutos mientras completas el pago.</p>
+                <p class="checkout-note">Reserva durante {{ reserva_minutos }} minutos.</p>
         </aside>
     </div>
 </div>

@@ -3,9 +3,7 @@
 {% block contenido %}
 <div class="container blog-page">
     <div class="blog-header">
-        <p class="contenido blog-kicker">LuJapon Journal</p>
         <h1 class="contenido">Blog</h1>
-        <p>Ideas, procesos, inspiración y consejos para prendas a medida.</p>
     </div>
 
     {% if entradas %}
@@ -25,7 +23,7 @@
                             <h2 class="contenido">{{ entrada.titulo }}</h2>
                         </a>
                         <p>{{ entrada.entradilla|default:entrada.contenido|truncatewords:24 }}</p>
-                        <a href="{% url 'blog_detalle' entrada.slug %}" class="contenido blog-read">Leer entrada</a>
+                        <a href="{% url 'blog_detalle' entrada.slug %}" class="contenido blog-read">Leer entrada <span>→</span></a>
                     </div>
                 </article>
             {% endfor %}
@@ -33,7 +31,6 @@
     {% else %}
         <div class="lu-empty">
             <p class="contenido">Todavía no hay entradas publicadas.</p>
-            <p>Pronto aparecerán ideas, guías de tallas y procesos de diseño.</p>
             {% if request.user.is_staff %}
                 <a href="/admin/base/entradablog/add/" class="contenido lu-btn">Crear Entrada</a>
             {% endif %}

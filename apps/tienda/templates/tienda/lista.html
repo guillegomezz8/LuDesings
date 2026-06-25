@@ -4,9 +4,7 @@
 <div class="container tienda-page">
     <header class="lu-page-header tienda-header">
         <div>
-            <p class="contenido lu-kicker">Colección LuJapon</p>
             <h1 class="contenido">Tienda</h1>
-            <p>Prendas disponibles, piezas únicas y diseños listos para reservar con pago online.</p>
         </div>
         {% if request.user.is_staff %}
             <a href="{% url "crear" %}" class="contenido lu-btn">Añadir Diseño</a>
@@ -37,12 +35,18 @@
         <button type="submit" class="contenido lu-shop-btn lu-shop-btn-primary">Filtrar</button>
     </form>
 
-    <div class="tienda-orden">
-        <span class="contenido">Ordenar:</span>
-        <a href="?orden=fecha_reciente" class="contenido orden-pill {% if orden == 'fecha_reciente' %}is-active{% endif %}">Recientes</a>
-        <a href="?orden=popularidad" class="contenido orden-pill {% if orden == 'popularidad' %}is-active{% endif %}">Favoritos</a>
-        <a href="?orden=precio_menor" class="contenido orden-pill {% if orden == 'precio_menor' %}is-active{% endif %}">Precio menor</a>
-        <a href="?orden=precio_mayor" class="contenido orden-pill {% if orden == 'precio_mayor' %}is-active{% endif %}">Precio mayor</a>
+    <div class="tienda-toolbar">
+        <div class="tienda-results">
+            <strong class="contenido">{{ diseños|length }}</strong>
+            <span>{% if diseños|length == 1 %}diseño encontrado{% else %}diseños encontrados{% endif %}</span>
+        </div>
+        <div class="tienda-orden">
+            <span class="contenido tienda-orden-label">Ordenar</span>
+            <a href="?orden=fecha_reciente" class="contenido orden-pill {% if orden == 'fecha_reciente' %}is-active{% endif %}">Recientes</a>
+            <a href="?orden=popularidad" class="contenido orden-pill {% if orden == 'popularidad' %}is-active{% endif %}">Favoritos</a>
+            <a href="?orden=precio_menor" class="contenido orden-pill {% if orden == 'precio_menor' %}is-active{% endif %}">Menor €</a>
+            <a href="?orden=precio_mayor" class="contenido orden-pill {% if orden == 'precio_mayor' %}is-active{% endif %}">Mayor €</a>
+        </div>
     </div>
 
     {% if diseños %}
@@ -72,10 +76,9 @@
                             <span>{{ d.get_categoria_display }}</span>
                             {% if d.tiene_stock_por_talla %}
                                 <span>Varias tallas</span>
-                            {% elif d.talla %}
-                                <span>Talla {{ d.talla }}</span>
+                            {% else %}
+                                <span>Talla única</span>
                             {% endif %}
-                            {% if d.esta_disponible %}<span>{{ d.stock_total }} en stock</span>{% endif %}
                         </div>
                         <div class="producto-compra">
                             <strong class="contenido producto-precio">
@@ -110,6 +113,9 @@
                                 <span class="producto-agotado">Agotado</span>
                             {% endif %}
                         </div>
+                        <a href="{% url "detalle_diseño" pk=d.pk %}" class="producto-detail-link">
+                            Ver detalles <span aria-hidden="true">→</span>
+                        </a>
                         {% if request.user.is_staff %}
                             <div class="admin-actions">
                                 <a href="{% url "editar_diseño" pk=d.pk %}" class="contenido lu-shop-btn lu-shop-btn-ghost">Editar</a>
@@ -126,7 +132,6 @@
     {% else %}
         <div class="lu-empty mt-4">
             <p class="contenido">No hay prendas que mostrar</p>
-            <p>Prueba con otros filtros o solicita una pieza hecha a medida.</p>
             <div class="lu-empty-actions">
                 <a href="{% url 'diseños' %}" class="contenido lu-btn">Ver todo</a>
                 <a href="{% url 'diseño_a_medida' %}" class="contenido lu-btn lu-btn-ghost">A Medida</a>
@@ -134,7 +139,7 @@
         </div>
     {% endif %}
 </div>
-<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/pages/tienda.css' %}?v=order-mobile-3"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {

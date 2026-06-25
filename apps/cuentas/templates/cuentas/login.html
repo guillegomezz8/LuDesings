@@ -3,16 +3,9 @@
 {% block contenido %}
 <div class="container auth-page">
     <section class="auth-card">
-        <aside class="auth-side">
-            <p class="contenido lu-kicker">Área cliente</p>
-            <h1 class="contenido">Entrar</h1>
-            <p>Accede para ver tus pedidos, guardar favoritos y reutilizar tus datos en futuras compras.</p>
-        </aside>
         <form method="post" class="auth-form">
             {% csrf_token %}
-            <div class="divider d-flex align-items-center my-4">
-                <h4 class="contenido text-center fw-bold mx-3 mb-0">Inicio de Sesión</h4>
-            </div>
+            <h1 class="contenido auth-title">Iniciar sesión</h1>
 
             <label for="username" class="contenido">Usuario</label>
             <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="Introduce tu usuario" autocomplete="username" required>
@@ -23,7 +16,7 @@
             <button type="submit" value="Login" class="contenido lu-btn auth-submit">Entrar</button>
             <div class="auth-link">
                 <span>¿Primera vez?</span>
-                <a class="contenido" href="{% url 'registro' %}">Crear cuenta de cliente</a>
+                <a class="contenido" href="{% url 'registro' %}">Crear cuenta</a>
             </div>
         </form>
     </section>

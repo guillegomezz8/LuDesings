@@ -4,18 +4,12 @@
 <div class="container form-page">
     <header class="lu-page-header">
         <div>
-            <p class="contenido lu-kicker">Panel de gestión</p>
             <h1 class="contenido">Editar Diseño</h1>
-            <p>Actualiza la información de la prenda, sus imágenes y su disponibilidad.</p>
         </div>
         <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Volver a Tienda</a>
     </header>
 
-    <section class="form-layout">
-        <aside class="form-help">
-            <h2 class="contenido">{{ diseño.nombre }}</h2>
-            <p>Los cambios se reflejan en la tienda al guardar. Si una imagen adicional ya no representa la prenda, márcala para borrar.</p>
-        </aside>
+    <section class="form-layout form-layout-single">
         <div class="contenedor-personalizado form-panel">
             <div class="divider d-flex align-items-center my-4">
                 <h4 class="contenido text-center fw-bold mx-3 mb-0">Datos de la prenda</h4>

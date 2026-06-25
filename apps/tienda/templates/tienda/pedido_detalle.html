@@ -4,13 +4,12 @@
 <div class="container pedido-page">
     <header class="lu-page-header">
         <div>
-            <p class="contenido lu-kicker">Detalle de pedido</p>
             <h1 class="contenido">Pedido #{{ pedido.pk }}</h1>
             <p>{{ pedido.nombre_cliente }} · {{ pedido.fecha_creacion|date:"d/m/Y" }}</p>
         </div>
         <div class="pedido-status">
-            <span class="lu-status">{{ pedido.get_estado_display }}</span>
-            <span class="lu-status">Pago {{ pedido.get_estado_pago_display }}</span>
+            <span class="lu-status status-{{ pedido.estado }}">{{ pedido.get_estado_display }}</span>
+            <span class="lu-status payment-{{ pedido.estado_pago }}">Pago {{ pedido.get_estado_pago_display }}</span>
         </div>
     </header>
 

@@ -6,7 +6,6 @@
         <section class="carrito-main">
             <div class="carrito-heading">
                 <div>
-                    <p class="contenido carrito-kicker">Tu selección</p>
                     <h1 class="contenido">Carrito</h1>
                 </div>
                 <a href="{% url 'diseños' %}" class="contenido lu-btn lu-btn-ghost">Seguir Comprando</a>
@@ -28,7 +27,7 @@
                                     <a href="{% url 'detalle_diseño' item.diseño.pk %}" class="contenido">{{ item.diseño.nombre }}</a>
                                     <strong class="contenido carrito-subtotal">{{ item.subtotal }} €</strong>
                                 </div>
-                                <p>{{ item.diseño.precio }} € unidad{% if item.talla %} · Talla {{ item.talla }}{% endif %}</p>
+                                <p>{{ item.diseño.precio }} € unidad · Talla {{ item.talla|default:"única" }}</p>
                                 <form method="post" action="{% url 'actualizar_carrito' item.diseño.pk %}" class="carrito-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="item_key" value="{{ item.key }}">
@@ -46,7 +45,7 @@
                                             </select>
                                         {% else %}
                                             <input type="hidden" name="talla" value="{{ item.talla }}">
-                                            <span class="carrito-talla-fija">{{ item.talla }}</span>
+                                            <span class="carrito-talla-fija">{{ item.talla|default:"Única" }}</span>
                                         {% endif %}
                                     </label>
                                     <button type="submit" class="contenido lu-shop-btn lu-shop-btn-primary">Actualizar</button>
@@ -59,7 +58,6 @@
             {% else %}
                 <div class="carrito-empty">
                     <p class="contenido">Tu carrito está vacío</p>
-                    <p>Explora la tienda y guarda aquí las prendas que quieras pedir.</p>
                     <div class="carrito-actions">
                         <a href="{% url 'diseños' %}" class="contenido lu-btn">Ver Tienda</a>
                     </div>
@@ -78,12 +76,11 @@
                     <span>Subtotal</span>
                     <strong>{{ total }} €</strong>
                 </div>
-                <div class="summary-note">Pago seguro con Stripe en el siguiente paso.</div>
                 <div class="carrito-total">
                     <span class="contenido">Total</span>
                     <strong class="contenido">{{ total }} €</strong>
                 </div>
-                <a href="{% url 'checkout' %}" class="contenido lu-btn w-100">Finalizar Pedido</a>
+                <a href="{% url 'checkout' %}" class="contenido lu-btn w-100">Continuar con el pedido</a>
             </aside>
         {% endif %}
     </div>

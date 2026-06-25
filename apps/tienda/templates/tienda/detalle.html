@@ -43,8 +43,8 @@
                 <span>{{ diseño.get_categoria_display }}</span>
                 {% if stock_tallas %}
                     <span>{{ stock_tallas|length }} tallas disponibles</span>
-                {% elif diseño.talla %}
-                    <span>Talla {{ diseño.talla }}</span>
+                {% else %}
+                    <span>Talla única</span>
                 {% endif %}
                 {% if diseño.esta_disponible %}
                     <span>{{ diseño.stock_total }} disponibles</span>
@@ -99,13 +99,12 @@
                                     </label>
                                 {% endfor %}
                             </div>
-                            <p class="size-selection-help" data-size-help>Selecciona una talla para ver la cantidad disponible.</p>
+                            <p class="size-selection-help" data-size-help></p>
                         {% else %}
                             <input type="hidden" name="talla" value="{{ diseño.talla }}">
                             <div class="size-options">
                                 <span class="size-option is-static">
-                                    <strong>{{ diseño.talla }}</strong>
-                                    <small>{{ diseño.stock }} disp.</small>
+                                    <strong>{{ diseño.talla|default:"Talla única" }}</strong>
                                 </span>
                             </div>
                         {% endif %}

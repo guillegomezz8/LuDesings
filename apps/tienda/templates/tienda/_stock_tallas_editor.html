@@ -1,26 +1,64 @@
+<div class="stock-mode-cards" data-stock-mode-cards hidden>
+    <button type="button" data-stock-mode="unica" aria-pressed="false">
+        <span class="stock-mode-icon" aria-hidden="true">1</span>
+        <strong class="contenido">Talla única</strong>
+    </button>
+    <button type="button" data-stock-mode="multiple" aria-pressed="false">
+        <span class="stock-mode-icon" aria-hidden="true">+</span>
+        <strong class="contenido">Varias tallas</strong>
+    </button>
+</div>
+<div class="stock-single-fields" data-single-stock-fields></div>
 <section class="stock-editor" data-stock-editor hidden>
     <div class="stock-editor-heading">
-        <div>
-            <h3 class="contenido">Tallas y unidades</h3>
-            <p>Añade solo las tallas que vas a vender. El stock se actualiza por separado para cada una.</p>
+        <h3 class="contenido">Tallas y unidades</h3>
+        <div class="stock-editor-summary" aria-live="polite">
+            <span><strong data-size-count>0</strong> tallas</span>
+            <span><strong data-stock-total>0</strong> unidades</span>
         </div>
-        <button type="button" class="contenido stock-add-custom" data-add-custom>+ Talla personalizada</button>
     </div>
-    <div class="stock-presets" aria-label="Tallas habituales">
-        <button type="button" data-preset-size="XS">XS</button>
-        <button type="button" data-preset-size="S">S</button>
-        <button type="button" data-preset-size="M">M</button>
-        <button type="button" data-preset-size="L">L</button>
-        <button type="button" data-preset-size="XL">XL</button>
-        <button type="button" data-preset-size="XXL">XXL</button>
-        <button type="button" data-preset-size="34">34</button>
-        <button type="button" data-preset-size="36">36</button>
-        <button type="button" data-preset-size="38">38</button>
-        <button type="button" data-preset-size="40">40</button>
-        <button type="button" data-preset-size="42">42</button>
-        <button type="button" data-preset-size="44">44</button>
-        <button type="button" data-preset-size="46">46</button>
+
+    <div class="stock-preset-groups">
+        <div class="stock-preset-group">
+            <div class="stock-preset-heading">
+                <strong class="contenido">Tallas de letra</strong>
+                <button type="button" data-add-group="XS,S,M,L,XL,XXL">Añadir grupo</button>
+            </div>
+            <div class="stock-presets" aria-label="Tallas de letra">
+                <button type="button" data-preset-size="XS" aria-pressed="false">XS</button>
+                <button type="button" data-preset-size="S" aria-pressed="false">S</button>
+                <button type="button" data-preset-size="M" aria-pressed="false">M</button>
+                <button type="button" data-preset-size="L" aria-pressed="false">L</button>
+                <button type="button" data-preset-size="XL" aria-pressed="false">XL</button>
+                <button type="button" data-preset-size="XXL" aria-pressed="false">XXL</button>
+            </div>
+        </div>
+        <div class="stock-preset-group">
+            <div class="stock-preset-heading">
+                <strong class="contenido">Tallas numéricas</strong>
+                <button type="button" data-add-group="34,36,38,40,42,44,46">Añadir grupo</button>
+            </div>
+            <div class="stock-presets" aria-label="Tallas numéricas">
+                <button type="button" data-preset-size="34" aria-pressed="false">34</button>
+                <button type="button" data-preset-size="36" aria-pressed="false">36</button>
+                <button type="button" data-preset-size="38" aria-pressed="false">38</button>
+                <button type="button" data-preset-size="40" aria-pressed="false">40</button>
+                <button type="button" data-preset-size="42" aria-pressed="false">42</button>
+                <button type="button" data-preset-size="44" aria-pressed="false">44</button>
+                <button type="button" data-preset-size="46" aria-pressed="false">46</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="stock-list-heading">
+        <strong class="contenido">Unidades por talla</strong>
+        <div class="stock-list-actions">
+            <button type="button" class="contenido stock-add-custom" data-add-custom>+ Personalizada</button>
+            <button type="button" class="stock-clear" data-clear-sizes hidden>Vaciar</button>
+        </div>
     </div>
     <div class="stock-size-list" data-stock-size-list></div>
-    <p class="stock-editor-empty" data-stock-empty>Selecciona una talla habitual o añade una personalizada.</p>
+    <div class="stock-editor-empty" data-stock-empty>
+        <span>Selecciona una talla para añadir unidades.</span>
+    </div>
 </section>

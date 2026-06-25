@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selected) {
                 quantity.max = String(stock);
                 quantity.value = String(Math.min(Math.max(Number(quantity.value) || 1, 1), stock));
-                help.textContent = `Talla ${selected.value}: ${stock} unidades disponibles.`;
+                help.textContent = `${stock} unidades disponibles`;
             } else {
-                help.textContent = 'Selecciona una talla para ver la cantidad disponible.';
+                help.textContent = '';
             }
         };
 
